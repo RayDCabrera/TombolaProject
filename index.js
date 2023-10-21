@@ -279,7 +279,7 @@ const slotSymbols = [
           // Sortear un número de Listado_Actual
          
           
-          // Mover el número sorteado de Listado_Actual a Listado_Sorteado
+          // Mover el número aaaasorteado de Listado_Actual a Listado_Sorteado
          
       }*/
 
