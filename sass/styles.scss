@@ -245,17 +245,7 @@ $red: #760209;
 //CONFETTI
 @import "animate.css";
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;700&display=swap");
-html {
-  height: 100%;
-  body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-}
+
 .canvas-confetti-btn {
   font-size: 5rem;
   border: none;

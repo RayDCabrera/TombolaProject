@@ -1,4 +1,4 @@
-import confetti from "canvas-confetti";
+
 
 
 
@@ -341,7 +341,7 @@ const slotSymbols = [
 
 
         ///condfetti
-
+        //import confetti from "canvas-confetti";
         const confettiBtn = document.querySelector(".canvas-confetti-btn");
         let exploding = false;
         const defaults = {
@@ -356,7 +356,7 @@ const slotSymbols = [
             })
           );
         };
-        confettiBtn.addEventListener("click", () => {
+        confettiBtn.addEventListener("transitionend", () => {
           if (exploding) {
             return;
           }
@@ -364,25 +364,25 @@ const slotSymbols = [
           confettiBtn.classList.add("animate__rubberBand");
           window.setTimeout(() => {
             fire(0.25, {
-              spread: 26,
+              spread: 2600,
               startVelocity: 55,
             });
             fire(0.2, {
               spread: 60,
             });
             fire(0.35, {
-              spread: 100,
+              spread: 1000,
               decay: 0.91,
               scalar: 0.8,
             });
             fire(0.1, {
-              spread: 120,
+              spread: 1000,
               startVelocity: 25,
               decay: 0.92,
               scalar: 1.2,
             });
             fire(0.1, {
-              spread: 120,
+              spread: 1200,
               startVelocity: 45,
             });
             window.setTimeout(() => {
