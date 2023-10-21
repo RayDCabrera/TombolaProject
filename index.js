@@ -188,7 +188,7 @@ const slotSymbols = [
       console.log(ganadores);
 
       var str = values.ID.toString();
-      res = [];
+      let res = [];
       
       for (var i = 0, len = str.length; i < len; i += 1) {
           res.push(str.charAt(i));
@@ -342,7 +342,7 @@ const slotSymbols = [
 
         ///condfetti
         //import confetti from "canvas-confetti";
-        const confettiBtn = document.querySelector(".canvas-confetti-btn");
+        const symbols = document.querySelector(".symbols");
         let exploding = false;
         const defaults = {
           particleCount: 500,
@@ -356,12 +356,12 @@ const slotSymbols = [
             })
           );
         };
-        confettiBtn.addEventListener("transitionend", () => {
+        symbols.addEventListener("transitionend", () => {
           if (exploding) {
             return;
           }
           exploding = true;
-          confettiBtn.classList.add("animate__rubberBand");
+          symbols.classList.add("animate__rubberBand");
           window.setTimeout(() => {
             fire(0.25, {
               spread: 2600,
@@ -371,22 +371,22 @@ const slotSymbols = [
               spread: 60,
             });
             fire(0.35, {
-              spread: 1000,
+              spread: 2600,
               decay: 0.91,
               scalar: 0.8,
             });
             fire(0.1, {
-              spread: 1000,
+              spread: 2600,
               startVelocity: 25,
               decay: 0.92,
               scalar: 1.2,
             });
             fire(0.1, {
-              spread: 1200,
+              spread: 2600,
               startVelocity: 45,
             });
             window.setTimeout(() => {
-              confettiBtn.classList.remove("animate__rubberBand");
+              simbols.classList.remove("animate__rubberBand");
               exploding = false;
             }, 300);
           }, 300);
