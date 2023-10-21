@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Record Based on Probability</title>
+</head>
+<body>
+    <input type="file" id="csvFileInput" accept=".csv">
+    <div id="output"></div>
+    <button id="selectRecord">Select Record</button>
+
+    <script>
+        let records = [];
+
+        document.getElementById('csvFileInput').addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const contents = e.target.result;
+                    records = parseCSV(contents);
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        function parseCSV(csvText) {
+            const rows = csvText.split('\n');
+            const parsedRecords = [];
+            
+            for (let i = 1; i < rows.length; i++) {
+                const columns = rows[i].split(',');
+                if (columns.length === 3) { // Ensure there are three columns
+                    const record = {
+                        'ID': parseInt(columns[0]),
+                        'NAME': columns[1],
+                        'COUPONS': parseInt(columns[2])
+                    };
+                    parsedRecords.push(record);
+                }
+            }
+
+            return parsedRecords;
+        }
+
+        document.getElementById('selectRecord').addEventListener('click', () => {
+            const selectedRecord = selectRecordBasedOnProbability(records);
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = JSON.stringify(selectedRecord, null, 2);
+        });
+
+        function selectRecordBasedOnProbability(records) {
+            const totalCouponCount = records.reduce((total, record) => total + record.COUPONS, 0);
+            const randomValue = Math.random() * totalCouponCount;
+            let cumulativeProbability = 0;
+
+            for (const record of records) {
+                cumulativeProbability += record.COUPONS;
+                if (cumulativeProbability >= randomValue) {
+                    return record;
+                }
+            }
+
+            // If no record is selected (unlikely but possible due to rounding errors), return the last record
+            return records[records.length - 1];
+        }
+    </script>
+</body>
+</html>
+
