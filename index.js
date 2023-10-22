@@ -1,7 +1,3 @@
-
-
-
-
 const slotSymbols = [
     ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
     ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
@@ -188,6 +184,7 @@ const slotSymbols = [
       console.log(ganadores);
 
       var str = values.ID.toString();
+      console.log(str);
       let res = [];
       
       for (var i = 0, len = str.length; i < len; i += 1) {
@@ -270,7 +267,8 @@ const slotSymbols = [
                     const contents = e.target.result;
                     records = parseCSV(contents);
                     localStorage.setItem('Listado_Participantes', JSON.stringify(records));
-                    //localStorage.setItem('Listado_Actual', JSON.stringify(records));  //Resetear el listado
+                    //localStorage.setItem('Listado_Actual', JSON.stringify(records));  //Resetear el listado+
+                    
                 };
                 reader.readAsText(file);
             }
@@ -301,8 +299,8 @@ const slotSymbols = [
 
             return parsedRecords;
         }
-
-  document.getElementById('select').addEventListener('click', () => {
+    
+      document.getElementById('select').addEventListener('click', () => {
 
             const selectedRecord = selectRecordBasedOnProbability(records);      
             const outputDiv = document.getElementById('output');
