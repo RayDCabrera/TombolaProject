@@ -270,6 +270,7 @@ const slotSymbols = [
                     const contents = e.target.result;
                     records = parseCSV(contents);
                     localStorage.setItem('Listado_Participantes', JSON.stringify(records));
+                    
                     //localStorage.setItem('Listado_Actual', JSON.stringify(records));  //Resetear el listado
                 };
                 reader.readAsText(file);
