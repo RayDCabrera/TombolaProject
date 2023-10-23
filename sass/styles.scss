@@ -21,9 +21,15 @@ header {
 
 .slotcontainer {
     display: flex;
-    justify-content: center;
+    justify-content: center;	
     align-items: center;
     margin-bottom: 20px;
+    margin-left: 20px;
+	border-style: groove;
+	border-color: #760209;
+	background-color: #760209;
+	border-width: 20px;
+	border-radius: 20px ;
 }
 
 .slot {
@@ -177,13 +183,14 @@ $red: #760209;
 #shoulder {
 	position: absolute;
 	top: 50px;
-	left: -340px;
+	left: -360px;
 	width: 80px;
 	height: 100px;
 	border-radius: 10px;
 	background-color: #333;
 	@include linearGradient(#666 0%, #333 60%, #666 100%);
 	box-shadow: inset 2px 2px 2px hsla(0,0%,100%,.2);
+	border-style: groove ;
 }
 #arm {
 	//*** BASE ***//

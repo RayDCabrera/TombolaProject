@@ -12,6 +12,9 @@
 
        
         <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.0/dist/confetti.browser.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script src="sweetalert2.all.min.js"></script>
     </head>
     <body>
         <header>
@@ -42,8 +45,13 @@
           </div>
             <div style="display: flex;">
             <button onclick="spin()">Spin</button>
-            <button onclick="reset()">Reset</button>
-            <button id = "select" onclick="stopAtDesiredSymbols()">Detener en símbolos deseados</button>
+            <button id = "reset" >Reset</button>
+
+
+            <button id = "resetwinners">Reiniciar Ganadores</button>
+
+
+
             <input type="file" id="csvFileInput" accept=".csv">
             <div id="output"></div>
             <button id="selectRecord">Select Record</button>

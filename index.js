@@ -26,7 +26,7 @@ const slotSymbols = [
       //spun = true;
     } if (spun) {
       const slots = document.querySelectorAll(".slot");
-    let completedSlots = 0;
+      let completedSlots = 0;
   
     slots.forEach((slot, index) => {
       const symbols = slot.querySelector(".symbols");
@@ -38,28 +38,18 @@ const slotSymbols = [
       symbols.appendChild(createSymbolElement("❓"));
      
   
-      for (let i = 0; i < 5; i++) {
+     for (let i = 0; i < 5; i++) {
         slotSymbols[index].forEach((symbol) => {
           symbols.appendChild(createSymbolElement(symbol));
         });
       }
   
-      const totalDistance = symbolCount * symbolHeight;
+   /*   const totalDistance = symbolCount * symbolHeight;
       const randomOffset =
         -Math.floor(Math.random() * (symbolCount - 1) + 1) *
         symbolHeight;
       symbols.style.top = `${randomOffset}px`;
-  
-     /* symbols.addEventListener(
-        "transitionend",
-        () => {
-          completedSlots++;
-          if (completedSlots < 2) {
-           spin();
-          }
-        },
-        { once: true }
-      );*/
+*/
     });
   
     spun = true;
@@ -69,9 +59,6 @@ const slotSymbols = [
   
   function reset() {
     const slots = document.querySelectorAll(".slot");
-
-
-  
     slots.forEach((slot) => {
       const symbols = slot.querySelector(".symbols");
       symbols.style.transition = "none";
@@ -81,38 +68,8 @@ const slotSymbols = [
     });
   }
   
-  /*function logDisplayedSymbols() {
-    const slots = document.querySelectorAll(".slot");
-    const displayedSymbols = [];
-  
-    slots.forEach((slot, index) => {
-      const symbols = slot.querySelector(".symbols");
-      const symbolIndex =
-        Math.floor(
-          Math.abs(parseInt(symbols.style.top, 10)) / slot.clientHeight
-        ) % slotSymbols[index].length;
-      const displayedSymbol = slotSymbols[index][symbolIndex];
-      displayedSymbols.push(displayedSymbol);
-    });
-  }
-  */
   spin();
   
-  /*function getSlotValue(slotIndex) {
-    const slots = document.querySelectorAll(".slot");
-    const slot = slots[slotIndex];
-  
-    const symbols = slot.querySelector(".symbols");
-    const symbolIndex =
-      Math.floor(
-        Math.abs(parseInt(symbols.style.top, 10)) / slot.clientHeight
-      ) % slotSymbols[slotIndex].length;
-  
-    const displayedSymbol = slotSymbols[slotIndex][symbolIndex];
-    return displayedSymbol;
-  }*/
-  
-
 
   function stopAtSymbols(desiredSymbols, id) {
     if (spun) {
@@ -126,7 +83,6 @@ const slotSymbols = [
         const symbolHeight = symbols.querySelector(".symbol")?.clientHeight;
         const symbolCount = symbols.childElementCount;
         
-        //console.log(symbolIndex, symbolsToShow, symbolCount)
        
         symbols.innerHTML = "";
         
@@ -142,24 +98,7 @@ const slotSymbols = [
             )
           );
         }
-    
-      /* symbols.addEventListener(
-          "transitionend",
-          () => {
-           // console.log("Transición completada en", event.target);
-            completedSlots++;
-           // if (completedSlots === slots.length) {
-              //alert("EL GANADOR ES:" + id  );
-            //}
-          
-
-
-          },
-          { once: true }
-        );*/
-
-
-     
+  
         let exploding = false;
         const defaults = {
           particleCount: 500,
@@ -204,7 +143,7 @@ const slotSymbols = [
             });
             window.setTimeout(() => {
               symbols.classList.remove("animate__rubberBand");
-              exploding = false;
+            //  exploding = false;
             }, 300);
           }, 300);
         });
@@ -220,8 +159,42 @@ const slotSymbols = [
     }
 
   }
+
+
   function stopAtDesiredSymbols() {
-    
+    localStorage.setItem('Listado_Participantes', JSON.stringify(records));
+
+    if(records == false) {
+     // console.log("ola",records)
+      document.getElementById("arm").disabled = true;
+      alert("POR FAVOR SELECCIONE PRIMERO EL ARCHIVO CSV");
+      Swal.fire({
+        title: 'Error!',
+        text: 'Do you want to continue',
+        icon: 'error',
+        confirmButtonText: 'Cool'
+      })
+    }else {
+
+      let participantes = JSON.parse(localStorage.getItem('Listado_Participantes'));
+   //  localStorage.setItem('Listado_Actual', JSON.stringify(participantes));
+
+      document.getElementById("reset").addEventListener('click', () => {
+      localStorage.setItem('Listado_Actual', JSON.stringify(participantes));
+      localStorage.removeItem('Listado_Sorteado');
+      let Listado_Sorteado = []
+      localStorage.setItem('Listado_Sorteado', JSON.stringify(Listado_Sorteado));
+      const slots = document.querySelectorAll(".slot");
+      slots.forEach((slot) => {
+        const symbols = slot.querySelector(".symbols");
+        symbols.style.transition = "none";
+        symbols.style.top = "0";
+        symbols.offsetHeight;
+        symbols.style.transition = "";
+       spin();
+      });
+    });
+
     let valoractual = JSON.parse(localStorage.getItem('Listado_Actual'));
       const values = selectRecordBasedOnProbability(valoractual);
       console.log(values);
@@ -229,8 +202,8 @@ const slotSymbols = [
       const Listado_Actual = valoractual.filter((actual) => actual.ID !== values.ID);
       valoractual = Listado_Actual;
       localStorage.setItem('Listado_Actual',JSON.stringify(valoractual));
-
-     // localStorage.setItem('Listado_Sorteado', JSON.stringify(Listado_Sorteado));
+      
+    // localStorage.setItem('Listado_Sorteado', JSON.stringify(Listado_Sorteado));
 
      let Listado_Sorteado = JSON.parse(localStorage.getItem('Listado_Sorteado'));
 
@@ -296,26 +269,10 @@ const slotSymbols = [
       }
         console.log("[" + symb + "]");
         stopAtSymbols(symb, values.ID);
-
-        
-      /*  const selectedRecord = values;
-
-        const indexToRemove = Listado_Actual.findIndex(record => record.ID === selectedRecord.ID);
-        if (indexToRemove !== -1) {
-            Listado_Actual.splice(indexToRemove, 1); // Eliminar el número sorteado
-            Listado_Sorteado.push(selectedRecord); // Agregarlo a Listado_Sorteado
-        }
     
-        // Actualizar localStorage
-        localStorage.setItem('Listado_Actual', JSON.stringify(Listado_Actual));
-        localStorage.setItem('Listado_Sorteado', JSON.stringify(Listado_Sorteado));
-
-        console.log(localStorage.getItem("Listado_Actual"));
-        console.log(localStorage.getItem("Listado_Sorteado"));
-        */
-
-
-  }
+    }
+    
+      }
     
         let records = [];
         document.getElementById('csvFileInput').addEventListener('change', (event) => {
@@ -325,22 +282,11 @@ const slotSymbols = [
                 reader.onload = (e) => {
                     const contents = e.target.result;
                     records = parseCSV(contents);
-                    console.log(records);
-                    localStorage.setItem('Listado_Participantes', JSON.stringify(records));
-                    
-                    //localStorage.setItem('Listado_Actual', JSON.stringify(records));  //Resetear el listado
+                   
                 };
                 reader.readAsText(file);
             }
         });
-        /*function selectAndMoveNumberFromList() {
-          // Sortear un número de Listado_Actual
-         
-          
-          // Mover el número aaaasorteado de Listado_Actual a Listado_Sorteado
-         
-      }*/
-
         function parseCSV(csvText) {
             const rows = csvText.split('\n');
             const parsedRecords = [];
@@ -360,17 +306,6 @@ const slotSymbols = [
             return parsedRecords;
         }
 
-        document.getElementById('select').addEventListener('click', () => {
-          if (records) {
-              const selectedRecord = selectRecordBasedOnProbability(records);
-              const outputDiv = document.getElementById('output');
-              /*outputDiv.innerHTML = JSON.stringify(selectedRecord, null, 2);*/
-          } else {
-              // Manejar el caso en el que records no está inicializado
-              console.error('Los registros no están disponibles.');
-          }
-      });
-
         function selectRecordBasedOnProbability(records) {
             const totalCouponCount = records.reduce((total, record) => total + record.COUPONS, 0);
             const randomValue = Math.random() * totalCouponCount;
@@ -378,11 +313,8 @@ const slotSymbols = [
           
             for (const record of records) {
                 cumulativeProbability += record.COUPONS;
-                if (cumulativeProbability >= randomValue) {
-                
-                // localStorage.setItem('Listado_Actual',JSON.stringify(records));
-                 
-                 return record;
+                if (cumulativeProbability >= randomValue) {              
+                  return record;
                 }
               
             }
@@ -399,7 +331,4 @@ const slotSymbols = [
           });
         });
 
-
-        ///condfetti
-        //import confetti from "canvas-confetti";
        
