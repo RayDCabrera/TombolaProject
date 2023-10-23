@@ -69,6 +69,8 @@ const slotSymbols = [
   
   function reset() {
     const slots = document.querySelectorAll(".slot");
+
+
   
     slots.forEach((slot) => {
       const symbols = slot.querySelector(".symbols");
@@ -141,7 +143,7 @@ const slotSymbols = [
           );
         }
     
-       symbols.addEventListener(
+      /* symbols.addEventListener(
           "transitionend",
           () => {
            // console.log("Transición completada en", event.target);
@@ -149,9 +151,64 @@ const slotSymbols = [
            // if (completedSlots === slots.length) {
               //alert("EL GANADOR ES:" + id  );
             //}
+          
+
+
           },
           { once: true }
-        );
+        );*/
+
+
+     
+        let exploding = false;
+        const defaults = {
+          particleCount: 500,
+          spread: 80,
+          angle: 50,
+        };
+        const fire = (particleRatio, opts) => {
+          confetti(
+            Object.assign({}, defaults, opts, {
+              particleCount: Math.floor(defaults.particleCount * particleRatio),
+            })
+          );
+        };
+        symbols.addEventListener("transitionend", () => {
+          if (exploding) {
+            return;
+          }
+          exploding = true;
+          symbols.classList.add("animate__rubberBand");
+          window.setTimeout(() => {
+            fire(0.25, {
+              spread: 2600,
+              startVelocity: 55,
+            });
+            fire(0.2, {
+              spread: 60,
+            });
+            fire(0.35, {
+              spread: 2600,
+              decay: 0.91,
+              scalar: 0.8,
+            });
+            fire(0.1, {
+              spread: 2600,
+              startVelocity: 25,
+              decay: 0.92,
+              scalar: 1.2,
+            });
+            fire(0.1, {
+              spread: 2600,
+              startVelocity: 45,
+            });
+            window.setTimeout(() => {
+              symbols.classList.remove("animate__rubberBand");
+              exploding = false;
+            }, 300);
+          }, 300);
+        });
+    
     
           const finalPosition = stopSymbolIndex * symbolHeight * -1;
           symbols.style.transition = "top 2s easy";
@@ -164,6 +221,7 @@ const slotSymbols = [
 
   }
   function stopAtDesiredSymbols() {
+    
     let valoractual = JSON.parse(localStorage.getItem('Listado_Actual'));
       const values = selectRecordBasedOnProbability(valoractual);
       console.log(values);
@@ -171,9 +229,10 @@ const slotSymbols = [
       const Listado_Actual = valoractual.filter((actual) => actual.ID !== values.ID);
       valoractual = Listado_Actual;
       localStorage.setItem('Listado_Actual',JSON.stringify(valoractual));
-    
 
-      let Listado_Sorteado = JSON.parse(localStorage.getItem('Listado_Sorteado'));
+     // localStorage.setItem('Listado_Sorteado', JSON.stringify(Listado_Sorteado));
+
+     let Listado_Sorteado = JSON.parse(localStorage.getItem('Listado_Sorteado'));
 
       Listado_Sorteado.push(values);
     
@@ -259,9 +318,6 @@ const slotSymbols = [
   }
     
         let records = [];
-        let Listado_Participantes = []; 
-   
-      
         document.getElementById('csvFileInput').addEventListener('change', (event) => {
             const file = event.target.files[0];
             if (file) {
@@ -269,6 +325,7 @@ const slotSymbols = [
                 reader.onload = (e) => {
                     const contents = e.target.result;
                     records = parseCSV(contents);
+                    console.log(records);
                     localStorage.setItem('Listado_Participantes', JSON.stringify(records));
                     
                     //localStorage.setItem('Listado_Actual', JSON.stringify(records));  //Resetear el listado
@@ -297,18 +354,22 @@ const slotSymbols = [
                         'COUPONS': parseInt(columns[2])
                     };
                     parsedRecords.push(record);
+                    
                 }
             }
-
             return parsedRecords;
         }
 
-  document.getElementById('select').addEventListener('click', () => {
-
-            const selectedRecord = selectRecordBasedOnProbability(records);      
-            const outputDiv = document.getElementById('output');
-            /*outputDiv.innerHTML = JSON.stringify(selectedRecord, null, 2);*/
-        });
+        document.getElementById('select').addEventListener('click', () => {
+          if (records) {
+              const selectedRecord = selectRecordBasedOnProbability(records);
+              const outputDiv = document.getElementById('output');
+              /*outputDiv.innerHTML = JSON.stringify(selectedRecord, null, 2);*/
+          } else {
+              // Manejar el caso en el que records no está inicializado
+              console.error('Los registros no están disponibles.');
+          }
+      });
 
         function selectRecordBasedOnProbability(records) {
             const totalCouponCount = records.reduce((total, record) => total + record.COUPONS, 0);
@@ -324,9 +385,7 @@ const slotSymbols = [
                  return record;
                 }
               
-            
             }
-
             // If no record is selected (unlikely but possible due to rounding errors), return the last record
             return records[records.length - 1];
         }
@@ -343,53 +402,4 @@ const slotSymbols = [
 
         ///condfetti
         //import confetti from "canvas-confetti";
-        const symbols = document.querySelector(".symbols");
-        let exploding = false;
-        const defaults = {
-          particleCount: 500,
-          spread: 80,
-          angle: 50,
-        };
-        const fire = (particleRatio, opts) => {
-          confetti(
-            Object.assign({}, defaults, opts, {
-              particleCount: Math.floor(defaults.particleCount * particleRatio),
-            })
-          );
-        };
-        symbols.addEventListener("transitionend", () => {
-          if (exploding) {
-            return;
-          }
-          exploding = true;
-          symbols.classList.add("animate__rubberBand");
-          window.setTimeout(() => {
-            fire(0.25, {
-              spread: 2600,
-              startVelocity: 55,
-            });
-            fire(0.2, {
-              spread: 60,
-            });
-            fire(0.35, {
-              spread: 2600,
-              decay: 0.91,
-              scalar: 0.8,
-            });
-            fire(0.1, {
-              spread: 2600,
-              startVelocity: 25,
-              decay: 0.92,
-              scalar: 1.2,
-            });
-            fire(0.1, {
-              spread: 2600,
-              startVelocity: 45,
-            });
-            window.setTimeout(() => {
-              simbols.classList.remove("animate__rubberBand");
-              exploding = false;
-            }, 300);
-          }, 300);
-        });
-    
+       
