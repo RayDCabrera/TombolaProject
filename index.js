@@ -168,30 +168,26 @@ const slotSymbols = [
      // console.log("ola",records)
       document.getElementById("arm").disabled = true;
       alert("POR FAVOR SELECCIONE PRIMERO EL ARCHIVO CSV");
-      Swal.fire({
-        title: 'Error!',
-        text: 'Do you want to continue',
-        icon: 'error',
-        confirmButtonText: 'Cool'
-      })
+    
     }else {
 
       let participantes = JSON.parse(localStorage.getItem('Listado_Participantes'));
-   //  localStorage.setItem('Listado_Actual', JSON.stringify(participantes));
+    //localStorage.setItem('Listado_Actual', JSON.stringify(participantes));
 
       document.getElementById("reset").addEventListener('click', () => {
-      localStorage.setItem('Listado_Actual', JSON.stringify(participantes));
-      localStorage.removeItem('Listado_Sorteado');
-      let Listado_Sorteado = []
-      localStorage.setItem('Listado_Sorteado', JSON.stringify(Listado_Sorteado));
-      const slots = document.querySelectorAll(".slot");
-      slots.forEach((slot) => {
-        const symbols = slot.querySelector(".symbols");
-        symbols.style.transition = "none";
-        symbols.style.top = "0";
-        symbols.offsetHeight;
-        symbols.style.transition = "";
-       spin();
+        localStorage.setItem('Listado_Actual', JSON.stringify(participantes));
+        localStorage.removeItem('Listado_Sorteado');
+
+        let Listado_Sorteado = []
+        localStorage.setItem('Listado_Sorteado', JSON.stringify(Listado_Sorteado));
+        const slots = document.querySelectorAll(".slot");
+        slots.forEach((slot) => {
+          const symbols = slot.querySelector(".symbols");
+          symbols.style.transition = "none";
+          symbols.style.top = "0";
+          symbols.offsetHeight;
+          symbols.style.transition = "";
+        spin();
       });
     });
 
