@@ -21,52 +21,77 @@
 
 </head>
 
-<body>
+<body class="custom-background">
   <header>
     <h1>SORTEO CON TOMBOLA HUMILDE</h1>
   </header>
-  <div class=" ">
-    <div class="row align-items-start">
-      
-        <div class="slotcontainer">
-          <div class="slot">
-            <div class="symbols" id="slot1Symbols"></div>
-          </div>
-          <div class="slot">
-            <div class="symbols" id="slot2Symbols"></div>
-          </div>
-          <div class="slot">
-            <div class="symbols" id="slot3Symbols"></div>
-          </div>
-          <div class="slot">
-            <div class="symbols" id="slot4Symbols"></div>
-          </div>
-          <div class="slot">
-            <div class="symbols" id="slot5Symbols"></div>
-          </div>
-          <div class="slot">
-            <div class="symbols" id="slot6Symbols"></div>
+  <div class="container">
+    <div class="container col-sm-12 col-md-12 col-xl-12 col-lg-12 ">
+
+      <div class="slotcontainer mt-2">
+        <div class="slot">
+          <div class="symbols" id="slot1Symbols"></div>
+        </div>
+        <div class="slot">
+          <div class="symbols" id="slot2Symbols"></div>
+        </div>
+        <div class="slot">
+          <div class="symbols" id="slot3Symbols"></div>
+        </div>
+        <div class="slot">
+          <div class="symbols" id="slot4Symbols"></div>
+        </div>
+        <div class="slot">
+          <div class="symbols" id="slot5Symbols"></div>
+        </div>
+        <div class="slot">
+          <div class="symbols" id="slot6Symbols"></div>
+        </div>
+      </div>
+      <div id="equation" class="done ">
+        <!--<span class="drink spinner"></span>-->
+        <div class="custom-shoulder mb-2" id="shoulder">
+          <div id="arm"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="container">
+
+      <!--<button onclick="spin()">Spin</button>-->
+      <div class="btn-group">
+        <button class="btn btn-success m-2 px-5 " data-toggle="modal" data-target="#miModal"
+          id="Sorteados">Sorteados</button>
+        <button class="btn btn-danger m-2 px-5" id="reset">Reset</button>
+        <!--<button id="resetwinners">Reiniciar Ganadores</button>-->
+      </div>
+      <input class="form-control" type="file" id="csvFileInput" accept=".csv">
+      <div id="output"></div>
+      <!--  <button id="selectRecord">Select Record</button>-->
+    </div>
+  </div>
+
+  <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="miModalLabel">Listado de Sorteados</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="listado">
           </div>
         </div>
-      
-    </div>
-    
-    <div style="display: flex;">
-
-      <button onclick="spin()">Spin</button>
-      <button id="reset">Reset</button>
-      <button id="resetwinners">Reiniciar Ganadores</button>
-
-      <input type="file" id="csvFileInput" accept=".csv">
-      <div id="output"></div>
-      <button id="selectRecord">Select Record</button>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary close" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
     </div>
   </div>
-  <div id="equation" class="done">
-    <span class="drink spinner"></span>
 
-
-  </div>
 
   <button class="canvas-confetti-btn animate__animated">
     🎉

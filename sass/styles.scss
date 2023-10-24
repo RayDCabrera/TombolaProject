@@ -1,9 +1,13 @@
 @import "animate.css";
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;700&display=swap");
 body {
-    background: #C5EC16;
+    background: #7ebf53;
     margin: 0;
     padding: 0;
+}
+
+body.custom-background {
+    background-color: #7ebf53;
 }
 
 header {
@@ -68,11 +72,13 @@ button {
     font-size: 16px;
 }
 
-
+.custom-shoulder {
+    margin-top: -50px; /* Ajusta el valor según tus preferencias */
+  }
 
 .page {
   height: 100%;
-  background-color: #F9F9F9;
+  background-color: #f3f3f3;
   background-image: -webkit-linear-gradient(top, #D8D8D8 0%, #F9F9F9 10%, #F9F9F9 80%, #D8D8D8 100%);
 }
 
@@ -192,6 +198,8 @@ $red: #760209;
 	@include linearGradient(#666 0%, #333 60%, #666 100%);
 	box-shadow: inset 2px 2px 2px hsla(0,0%,100%,.2);
 	border-style: groove ;
+	border-color:#333;
+
 }
 #arm {
 	//*** BASE ***//
