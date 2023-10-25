@@ -62,8 +62,11 @@ function spin() {
 
 spin();
 
-
+let spun = false;
 function stopAtSymbols(desiredSymbols, id, nombre) {
+  if (spun) {
+    reset();
+  }
   const slots = document.querySelectorAll(".slot");
   let completedSlots = 0;
 
@@ -71,9 +74,9 @@ function stopAtSymbols(desiredSymbols, id, nombre) {
     const symbols = slot.querySelector(".symbols");
     const symbolHeight = symbols.querySelector(".symbol")?.clientHeight;
     const symbolCount = symbols.childElementCount;
- 
+
     // Iniciar la animación suave
- 
+
 
     const stopSymbolIndex = slotSymbols[index].indexOf(desiredSymbols[index]);
 
@@ -89,7 +92,7 @@ function stopAtSymbols(desiredSymbols, id, nombre) {
         )
       );
     }
-    /*
+    
         let exploding = false;
         const defaults = {
           particleCount: 500,
@@ -139,14 +142,14 @@ function stopAtSymbols(desiredSymbols, id, nombre) {
             }, 300);
           }, 300);
           //  Swal.fire('SOCIO NRO:', id.toString() + ' -- ' + nombre.toString())
-        });*/
+        });
+      symbols.style.transition = "top 2s easy";
+      symbols.style.top = `${finalPosition}px`;
+    });
+    spun = true;
+  }
+ 
 
-  /*  const finalPosition = stopSymbolIndex * symbolHeight * -1;
-    symbols.style.transition = "top 2s easy";
-    symbols.style.top = `${finalPosition}px`;
-  });*/
-
-})}
 
 function listados() {
   localStorage.setItem('Listado_Participantes', JSON.stringify(records));
@@ -186,6 +189,18 @@ function resetlistados() {
       symbols.style.transition = "";
       spin();
     });
+  });
+}
+
+function reset(){
+  const slots = document.querySelectorAll(".slot");
+  slots.forEach((slot) => {
+    const symbols = slot.querySelector(".symbols");
+    symbols.style.transition = "none";
+    symbols.style.top = "0";
+    symbols.offsetHeight;
+    symbols.style.transition = "";
+    spin();
   });
 }
 document.getElementById("reset").addEventListener('click', resetlistados);
@@ -302,110 +317,110 @@ function stopAtDesiredSymbols() {
 
 }
 
-  function padLeft(value, length, padChar) {
-    const strValue = value.toString();
-    if (strValue.length >= length) {
-      return strValue;
-    }
-    const padding = padChar.repeat(length - strValue.length);
-    return padding + strValue;
+function padLeft(value, length, padChar) {
+  const strValue = value.toString();
+  if (strValue.length >= length) {
+    return strValue;
+  }
+  const padding = padChar.repeat(length - strValue.length);
+  return padding + strValue;
+}
+
+
+function validacion(value) {
+
+}
+
+function ListadoSorteados() {
+  // Obtener los sorteos almacenados en localStorage
+  const sorteados = JSON.parse(localStorage.getItem('Listado_Sorteado'));
+
+  // Asegurarse de que haya un elemento en el HTML para mostrar la información
+  const resultContainer = document.getElementById('listado');
+
+  // Verificar si hay sorteos almacenados
+  if (sorteados && sorteados.length > 0) {
+    // Limpiar el contenido actual del contenedor si es necesario
+    resultContainer.innerHTML = '';
+
+    // Iterar a través de los sorteos y mostrar la información
+    sorteados.forEach((sorteado) => {
+      const info = document.createElement('div');
+      info.textContent = `Socio Nro: ${sorteado.ID}`;
+      resultContainer.appendChild(info);
+    });
+    $('#miModal').modal('show');
+  } else {
+    resultContainer.textContent = 'No hay sorteos almacenados.';
   }
 
+}
 
-  function validacion(value) {
+document.getElementById('Sorteados').addEventListener('click', ListadoSorteados);
 
+
+let records = [];
+document.getElementById('csvFileInput').addEventListener('change', (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const contents = e.target.result;
+      records = parseCSV(contents);
+
+    };
+    reader.readAsText(file);
   }
+});
+function parseCSV(csvText) {
+  const rows = csvText.split('\n');
+  const parsedRecords = [];
 
-  function ListadoSorteados() {
-    // Obtener los sorteos almacenados en localStorage
-    const sorteados = JSON.parse(localStorage.getItem('Listado_Sorteado'));
-
-    // Asegurarse de que haya un elemento en el HTML para mostrar la información
-    const resultContainer = document.getElementById('listado');
-
-    // Verificar si hay sorteos almacenados
-    if (sorteados && sorteados.length > 0) {
-      // Limpiar el contenido actual del contenedor si es necesario
-      resultContainer.innerHTML = '';
-
-      // Iterar a través de los sorteos y mostrar la información
-      sorteados.forEach((sorteado) => {
-        const info = document.createElement('div');
-        info.textContent = `Socio Nro: ${sorteado.ID}`;
-        resultContainer.appendChild(info);
-      });
-      $('#miModal').modal('show');
-    } else {
-      resultContainer.textContent = 'No hay sorteos almacenados.';
-    }
-
-  }
-
-  document.getElementById('Sorteados').addEventListener('click', ListadoSorteados);
-
-
-  let records = [];
-  document.getElementById('csvFileInput').addEventListener('change', (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const contents = e.target.result;
-        records = parseCSV(contents);
-
+  for (let i = 1; i < rows.length; i++) {
+    const columns = rows[i].split(',');
+    if (columns.length === 3) { // Ensure there are three columns
+      const record = {
+        'ID': parseInt(columns[0]),
+        'NAME': columns[1],
+        'COUPONS': parseInt(columns[2])
       };
-      reader.readAsText(file);
-    }
-  });
-  function parseCSV(csvText) {
-    const rows = csvText.split('\n');
-    const parsedRecords = [];
+      parsedRecords.push(record);
 
-    for (let i = 1; i < rows.length; i++) {
-      const columns = rows[i].split(',');
-      if (columns.length === 3) { // Ensure there are three columns
-        const record = {
-          'ID': parseInt(columns[0]),
-          'NAME': columns[1],
-          'COUPONS': parseInt(columns[2])
-        };
-        parsedRecords.push(record);
-
-      }
     }
-    return parsedRecords;
   }
+  return parsedRecords;
+}
 
-  function selectRecordBasedOnProbability(records) {
-    const totalCouponCount = records.reduce((total, record) => total + record.COUPONS, 0);
-    const randomValue = Math.random() * totalCouponCount;
-    let cumulativeProbability = 0;
+function selectRecordBasedOnProbability(records) {
+  const totalCouponCount = records.reduce((total, record) => total + record.COUPONS, 0);
+  const randomValue = Math.random() * totalCouponCount;
+  let cumulativeProbability = 0;
 
-    for (const record of records) {
-      cumulativeProbability += record.COUPONS;
-      if (cumulativeProbability >= randomValue) {
-        return record;
-      }
-
+  for (const record of records) {
+    cumulativeProbability += record.COUPONS;
+    if (cumulativeProbability >= randomValue) {
+      return record;
     }
-    // If no record is selected (unlikely but possible due to rounding errors), return the last record
-    return records[records.length - 1];
-  }
 
-  $(document).ready(function () {
-    $('#arm').click(function (e) {
-      var arm = $(this).addClass('clicked');
+  }
+  // If no record is selected (unlikely but possible due to rounding errors), return the last record
+  return records[records.length - 1];
+}
+
+$(document).ready(function () {
+  $('#arm').click(function (e) {
+    var arm = $(this).addClass('clicked');
     //    delay = setTimeout(function () { arm.removeClass('clicked') }, 500);
     $(this).attr("disabled", true);
-      e.preventDefault();
-      stopAtDesiredSymbols();
+    e.preventDefault();
+    stopAtDesiredSymbols();
 
-      // Habilitar el botón nuevamente después de 2 segundos
-      setTimeout(function () {
-        arm.removeClass('clicked');
-        $('#arm').removeAttr("disabled");
-      }, 4000); // 4 segundos
-    });
+    // Habilitar el botón nuevamente después de 2 segundos
+    setTimeout(function () {
+      arm.removeClass('clicked');
+      $('#arm').removeAttr("disabled");
+    }, 4000); // 4 segundos
   });
+});
 
 
