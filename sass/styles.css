@@ -1,7 +1,5 @@
 @charset "UTF-8";
-@import "animate.css";
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;700&display=swap");
-@import "animate.css";
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;700&display=swap");
 body {
   background: #7ebf53;
@@ -114,6 +112,7 @@ button {
   box-shadow: inset 2px 2px 2px hsla(0, 0%, 100%, 0.2);
   border-style: groove;
   border-color: #333;
+  display: flex;
 }
 
 #arm {

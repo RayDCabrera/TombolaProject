@@ -120,25 +120,25 @@ function stopAtSymbols(desiredSymbols, id, nombre) {
         symbols.classList.add("animate__rubberBand");
         window.setTimeout(() => {
           fire(0.25, {
-            spread: 2600,
+            spread: 260,
             startVelocity: 55,
           });
           fire(0.2, {
-            spread: 60,
+            spread: 260,
           });
           fire(0.35, {
-            spread: 2600,
+            spread: 260,
             decay: 0.91,
             scalar: 0.8,
           });
           fire(0.1, {
-            spread: 2600,
+            spread: 260,
             startVelocity: 25,
             decay: 0.92,
             scalar: 1.2,
           });
           fire(0.1, {
-            spread: 2600,
+            spread: 260,
             startVelocity: 45,
           });
           window.setTimeout(() => {
@@ -147,6 +147,7 @@ function stopAtSymbols(desiredSymbols, id, nombre) {
             Swal.fire('SOCIO NRO:', id.toString() + ' -- ' + nombre.toString())
           }, 300);
         }, 300);
+        Swal.fire('SOCIO NRO:', id.toString() + ' -- ' + nombre.toString())
       });
 
 
@@ -169,7 +170,7 @@ function stopAtDesiredSymbols() {
     // console.log("ola",records)
     document.getElementById("arm").disabled = true;
     // alert("POR FAVOR SELECCIONE PRIMERO EL ARCHIVO CSV");
-    Swal.fire('POR FAVOR SELECCIONE PRIMERO EL ARCHIVO CSV!')
+    Swal.fire('POR FAVOR SELECCIONE EL LISTADO!')
   } else {
 
     let participantes = JSON.parse(localStorage.getItem('Listado_Participantes'));
