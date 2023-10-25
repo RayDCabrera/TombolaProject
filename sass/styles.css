@@ -1,6 +1,12 @@
 @charset "UTF-8";
+<<<<<<< HEAD
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;700&display=swap");
+=======
+
+>>>>>>> 12e682aae85261a4ba403c0379deede98aea57f0
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;700&display=swap");
+
+
 body {
   background: #7ebf53;
   margin: 0;

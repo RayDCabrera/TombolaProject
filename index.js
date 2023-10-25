@@ -1,7 +1,4 @@
 
-
-
-
 const slotSymbols = [
   ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
   ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
@@ -18,46 +15,41 @@ function createSymbolElement(symbol) {
   return div;
 }
 
-let spun = true;
-
 function spin() {
-  if (spun === false) {
-    //reset();
-    //spun = true;
-  } if (spun) {
-    const slots = document.querySelectorAll(".slot");
-    let completedSlots = 0;
 
-    slots.forEach((slot, index) => {
-      const symbols = slot.querySelector(".symbols");
-      const symbolHeight = symbols.querySelector(".symbol")?.clientHeight;
-      const symbolCount = symbols.childElementCount;
+  const slots = document.querySelectorAll(".slot");
+  let completedSlots = 0;
 
-      symbols.innerHTML = "";
+  slots.forEach((slot, index) => {
+    const symbols = slot.querySelector(".symbols");
+    // const symbolHeight = symbols.querySelector(".symbol")?.clientHeight;
+    // const symbolCount = symbols.childElementCount;
 
-      symbols.appendChild(createSymbolElement("❓"));
+    symbols.innerHTML = "";
+
+    symbols.appendChild(createSymbolElement("❓"));
 
 
-      for (let i = 0; i < 5; i++) {
-        slotSymbols[index].forEach((symbol) => {
-          symbols.appendChild(createSymbolElement(symbol));
-        });
-      }
+    for (let i = 0; i < 5; i++) {
+      slotSymbols[index].forEach((symbol) => {
+        symbols.appendChild(createSymbolElement(symbol));
+      });
+    }
 
-      /*   const totalDistance = symbolCount * symbolHeight;
-         const randomOffset =
-           -Math.floor(Math.random() * (symbolCount - 1) + 1) *
-           symbolHeight;
-         symbols.style.top = `${randomOffset}px`;
-   */
-    });
+    /*   const totalDistance = symbolCount * symbolHeight;
+       const randomOffset =
+         -Math.floor(Math.random() * (symbolCount - 1) + 1) *
+         symbolHeight;
+       symbols.style.top = `${randomOffset}px`;
+ */
+  });
 
-    spun = true;
-  }
 
 }
 
-function reset() {
+
+
+/*function reset() {
   const slots = document.querySelectorAll(".slot");
   slots.forEach((slot) => {
     const symbols = slot.querySelector(".symbols");
@@ -66,23 +58,19 @@ function reset() {
     symbols.offsetHeight;
     symbols.style.transition = "";
   });
-}
+}*/
 
 spin();
 
 
 function stopAtSymbols(desiredSymbols, id, nombre) {
-  if (spun) {
     const slots = document.querySelectorAll(".slot");
     let completedSlots = 0;
-
-
 
     slots.forEach((slot, index) => {
       const symbols = slot.querySelector(".symbols");
       const symbolHeight = symbols.querySelector(".symbol")?.clientHeight;
       const symbolCount = symbols.childElementCount;
-
 
       symbols.innerHTML = "";
 
@@ -150,154 +138,163 @@ function stopAtSymbols(desiredSymbols, id, nombre) {
         Swal.fire('SOCIO NRO:', id.toString() + ' -- ' + nombre.toString())
       });
 
-
       const finalPosition = stopSymbolIndex * symbolHeight * -1;
       symbols.style.transition = "top 2s easy";
       symbols.style.top = `${finalPosition}px`;
     });
 
-    spun = true;
-
   }
 
-}
-
-
-function stopAtDesiredSymbols() {
+function listados(participantes) {
   localStorage.setItem('Listado_Participantes', JSON.stringify(records));
-
   if (records == false) {
     // console.log("ola",records)
     document.getElementById("arm").disabled = true;
     // alert("POR FAVOR SELECCIONE PRIMERO EL ARCHIVO CSV");
-    Swal.fire('POR FAVOR SELECCIONE EL LISTADO!')
+    Swal.fire('POR FAVOR SELECCIONE EL ARCHIVO')
+    return null;
+
   } else {
-
-    let participantes = JSON.parse(localStorage.getItem('Listado_Participantes'));
-    //localStorage.setItem('Listado_Actual', JSON.stringify(participantes));
-
-    document.getElementById("reset").addEventListener('click', () => {
-      localStorage.setItem('Listado_Actual', JSON.stringify(participantes));
-      localStorage.removeItem('Listado_Sorteado');
-
-      let Listado_Sorteado = []
-      localStorage.setItem('Listado_Sorteado', JSON.stringify(Listado_Sorteado));
-      const slots = document.querySelectorAll(".slot");
-      slots.forEach((slot) => {
-        const symbols = slot.querySelector(".symbols");
-        symbols.style.transition = "none";
-        symbols.style.top = "0";
-        symbols.offsetHeight;
-        symbols.style.transition = "";
-        spin();
-      });
-    });
-
-    let valoractual = JSON.parse(localStorage.getItem('Listado_Actual'));
-    const values = selectRecordBasedOnProbability(valoractual);
-    console.log(values);
-    console.log(values.ID);
-    const Listado_Actual = valoractual.filter((actual) => actual.ID !== values.ID);
-    valoractual = Listado_Actual;
-    localStorage.setItem('Listado_Actual', JSON.stringify(valoractual));
-
-    // localStorage.setItem('Listado_Sorteado', JSON.stringify(Listado_Sorteado));
-
-    let Listado_Sorteado = JSON.parse(localStorage.getItem('Listado_Sorteado'));
-
-    Listado_Sorteado.push(values);
-
-    // Store the updated Listado_Sorteado back in localStorage
-    localStorage.setItem('Listado_Sorteado', JSON.stringify(Listado_Sorteado));
-
-    let ganadores = Listado_Sorteado;
-
-
-
-    console.log(Listado_Actual);
-    console.log(ganadores);
-
-    var str = values.ID.toString();
-    let res = [];
-
-    for (var i = 0, len = str.length; i < len; i += 1) {
-      res.push(str.charAt(i));
-    }
-    console.log("[" + res + "]");
-
-    const value = res;
-    const symb = [];
-    if (value.length === 1) {
-      for (var i = 0; i < 5; i++) {
-        symb.push("0");
-      }
-      for (var i = 0; i < value.length; i++) {
-        symb.push(value[i].toString());
-      }
-    } else if (value.length === 2) {
-      for (var i = 0; i < 4; i++) {
-        symb.push("0");
-      }
-      for (var i = 0; i < value.length; i++) {
-        symb.push(value[i].toString());
-      }
-    } else if (value.length === 3) {
-      for (var i = 0; i < 3; i++) {
-        symb.push("0");
-      }
-      for (var i = 0; i < value.length; i++) {
-        symb.push(value[i].toString());
-      }
-    } else if (value.length === 4) {
-      for (var i = 0; i < 2; i++) {
-        symb.push("0");
-      }
-      for (var i = 0; i < value.length; i++) {
-        symb.push(value[i].toString());
-      }
-    } else if (value.length === 5) {
-      symb.push("0");
-      for (var i = 0; i < value.length; i++) {
-        symb.push(value[i].toString());
-      }
-    } else if (value.length === 6) {
-      for (var i = 0; i < value.length; i++) {
-        symb.push(value[i].toString());
-      }
-    }
-    console.log("[" + symb + "]");
-    stopAtSymbols(symb, values.ID, values.NAME);
-
+    participantes = JSON.parse(localStorage.getItem('Listado_Participantes'));
+    return participantes;
   }
+}
+
+function listaactual() {
+ // localStorage.setItem('Listado_Actual', JSON.stringify(listados(participantes)));
+  let actual = JSON.parse(localStorage.getItem('Listado_Actual'));
+  return actual;
+}
+
+function resetlistados(participantes) {
+  document.getElementById("reset").addEventListener('click', () => {
+    localStorage.setItem('Listado_Actual', JSON.stringify(listados(participantes)));
+    localStorage.removeItem('Listado_Sorteado');
+
+    let Listado_Sorteado = []
+    localStorage.setItem('Listado_Sorteado', JSON.stringify(Listado_Sorteado));
+    const slots = document.querySelectorAll(".slot");
+    slots.forEach((slot) => {
+      const symbols = slot.querySelector(".symbols");
+      symbols.style.transition = "none";
+      symbols.style.top = "0";
+      symbols.offsetHeight;
+      symbols.style.transition = "";
+      spin();
+    });
+  });
+}
+function stopAtDesiredSymbols() {
+
+  const hayRegistros = listados();
+  document.getElementById("reset").addEventListener('click', resetlistados());
+  if (hayRegistros != null) {
+  let valoractual = listaactual();
+
+  const values = selectRecordBasedOnProbability(valoractual);
+
+  const Listado_Actual = valoractual.filter((actual) => actual.ID !== values.ID);
+  valoractual = Listado_Actual;
+  localStorage.setItem('Listado_Actual', JSON.stringify(valoractual));
+
+
+  let Listado_Sorteado = JSON.parse(localStorage.getItem('Listado_Sorteado'));
+
+  Listado_Sorteado.push(values);
+
+  // Store the updated Listado_Sorteado back in localStorage
+  localStorage.setItem('Listado_Sorteado', JSON.stringify(Listado_Sorteado));
+
+  let ganadores = Listado_Sorteado;
+
+  console.log(Listado_Actual);
+  console.log(ganadores);
+
+  var str = values.ID.toString();
+  let res = [];
+
+  for (var i = 0, len = str.length; i < len; i += 1) {
+    res.push(str.charAt(i));
+  }
+  console.log("[" + res + "]");
+
+  const value = res;
+  const symb = [];
+  if (value.length === 1) {
+    for (var i = 0; i < 5; i++) {
+      symb.push("0");
+    }
+    for (var i = 0; i < value.length; i++) {
+      symb.push(value[i].toString());
+    }
+  } else if (value.length === 2) {
+    for (var i = 0; i < 4; i++) {
+      symb.push("0");
+    }
+    for (var i = 0; i < value.length; i++) {
+      symb.push(value[i].toString());
+    }
+  } else if (value.length === 3) {
+    for (var i = 0; i < 3; i++) {
+      symb.push("0");
+    }
+    for (var i = 0; i < value.length; i++) {
+      symb.push(value[i].toString());
+    }
+  } else if (value.length === 4) {
+    for (var i = 0; i < 2; i++) {
+      symb.push("0");
+    }
+    for (var i = 0; i < value.length; i++) {
+      symb.push(value[i].toString());
+    }
+  } else if (value.length === 5) {
+    symb.push("0");
+    for (var i = 0; i < value.length; i++) {
+      symb.push(value[i].toString());
+    }
+  } else if (value.length === 6) {
+    for (var i = 0; i < value.length; i++) {
+      symb.push(value[i].toString());
+    }
+  }
+  console.log("[" + symb + "]");
+  stopAtSymbols(symb, values.ID, values.NAME);
+
+}}
+
+
+
+function validacion(value) {
 
 }
 
 function ListadoSorteados() {
-   // Obtener los sorteos almacenados en localStorage
-   const sorteados = JSON.parse(localStorage.getItem('Listado_Sorteado'));
+  // Obtener los sorteos almacenados en localStorage
+  const sorteados = JSON.parse(localStorage.getItem('Listado_Sorteado'));
 
-   // Asegurarse de que haya un elemento en el HTML para mostrar la información
-   const resultContainer = document.getElementById('listado');
- 
-   // Verificar si hay sorteos almacenados
-   if (sorteados && sorteados.length > 0) {
-     // Limpiar el contenido actual del contenedor si es necesario
-     resultContainer.innerHTML = '';
- 
-     // Iterar a través de los sorteos y mostrar la información
-     sorteados.forEach((sorteado) => {
-       const info = document.createElement('div');
-       info.textContent = `Socio Nro: ${sorteado.ID}`;
-       resultContainer.appendChild(info);
-     });
-     $('#miModal').modal('show');
-   } else {
-     resultContainer.textContent = 'No hay sorteos almacenados.';
-   }
- 
- }
+  // Asegurarse de que haya un elemento en el HTML para mostrar la información
+  const resultContainer = document.getElementById('listado');
 
- document.getElementById('Sorteados').addEventListener('click', ListadoSorteados);
+  // Verificar si hay sorteos almacenados
+  if (sorteados && sorteados.length > 0) {
+    // Limpiar el contenido actual del contenedor si es necesario
+    resultContainer.innerHTML = '';
+
+    // Iterar a través de los sorteos y mostrar la información
+    sorteados.forEach((sorteado) => {
+      const info = document.createElement('div');
+      info.textContent = `Socio Nro: ${sorteado.ID}`;
+      resultContainer.appendChild(info);
+    });
+    $('#miModal').modal('show');
+  } else {
+    resultContainer.textContent = 'No hay sorteos almacenados.';
+  }
+
+}
+
+document.getElementById('Sorteados').addEventListener('click', ListadoSorteados);
 
 
 let records = [];
