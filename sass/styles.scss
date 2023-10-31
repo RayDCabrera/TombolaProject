@@ -53,8 +53,8 @@ header {
     position: absolute;
     top: 0;
     left: 0;
-	transition: 2s linear;
-}
+    animation: spin 5s linear infinite;
+  }
 
 .slot .symbol {
     width: 100px;

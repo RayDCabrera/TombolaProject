@@ -15,8 +15,8 @@ function createSymbolElement(symbol) {
   return div;
 }
 
+let spinning = false
 function spin() {
-
   const slots = document.querySelectorAll(".slot");
   let completedSlots = 0;
 
@@ -36,9 +36,12 @@ function spin() {
       });
     }
 
+
+
+
     /*   const totalDistance = symbolCount * symbolHeight;
        const randomOffset =
-         -Math.floor(Math.random() * (symbolCount - 1) + 1) *
+-Math.floor(Math.random() * (symbolCount - 1) + 1) *
          symbolHeight;
        symbols.style.top = `${randomOffset}px`;
  */
@@ -92,63 +95,63 @@ function stopAtSymbols(desiredSymbols, id, nombre) {
         )
       );
     }
-    
-        let exploding = false;
-        const defaults = {
-          particleCount: 500,
-          spread: 80,
-          angle: 50,
-        };
-        const fire = (particleRatio, opts) => {
-          confetti(
-            Object.assign({}, defaults, opts, {
-              particleCount: Math.floor(defaults.particleCount * particleRatio),
-            })
-          );
-        };
-        symbols.addEventListener("transitionend", () => {
-          if (exploding) {
-            return;
-          }
-          exploding = true;
-          symbols.classList.add("animate__rubberBand");
-          window.setTimeout(() => {
-            fire(0.25, {
-              spread: 260,
-              startVelocity: 55,
-            });
-            fire(0.2, {
-              spread: 260,
-            });
-            fire(0.35, {
-              spread: 260,
-              decay: 0.91,
-              scalar: 0.8,
-            });
-            fire(0.1, {
-              spread: 260,
-              startVelocity: 25,
-              decay: 0.92,
-              scalar: 1.2,
-            });
-            fire(0.1, {
-              spread: 2600,
-              startVelocity: 45,
-            });
-            window.setTimeout(() => {
-              symbols.classList.remove("animate__rubberBand");
-              //  exploding = false;
-              Swal.fire('SOCIO NRO:', id.toString() + ' -- ' + nombre.toString())
-            }, 300);
-          }, 300);
-          //  Swal.fire('SOCIO NRO:', id.toString() + ' -- ' + nombre.toString())
+
+    let exploding = false;
+    const defaults = {
+      particleCount: 500,
+      spread: 80,
+      angle: 50,
+    };
+    const fire = (particleRatio, opts) => {
+      confetti(
+        Object.assign({}, defaults, opts, {
+          particleCount: Math.floor(defaults.particleCount * particleRatio),
+        })
+      );
+    };
+    symbols.addEventListener("transitionend", () => {
+      if (exploding) {
+        return;
+      }
+      exploding = true;
+      symbols.classList.add("animate__rubberBand");
+      window.setTimeout(() => {
+        fire(0.25, {
+          spread: 260,
+          startVelocity: 55,
         });
-      symbols.style.transition = "top 2s easy";
-      symbols.style.top = `${finalPosition}px`;
+        fire(0.2, {
+          spread: 260,
+        });
+        fire(0.35, {
+          spread: 260,
+          decay: 0.91,
+          scalar: 0.8,
+        });
+        fire(0.1, {
+          spread: 260,
+          startVelocity: 25,
+          decay: 0.92,
+          scalar: 1.2,
+        });
+        fire(0.1, {
+          spread: 2600,
+          startVelocity: 45,
+        });
+        window.setTimeout(() => {
+          symbols.classList.remove("animate__rubberBand");
+          //  exploding = false;
+          Swal.fire('SOCIO NRO:', id.toString() + ' -- ' + nombre.toString())
+        }, 300);
+      }, 300);
+      //  Swal.fire('SOCIO NRO:', id.toString() + ' -- ' + nombre.toString())
     });
-    spun = true;
-  }
- 
+    symbols.style.transition = "top 2s easy";
+    symbols.style.top = `${finalPosition}px`;
+  });
+  spun = true;
+}
+
 
 
 function listados() {
@@ -192,7 +195,7 @@ function resetlistados() {
   });
 }
 
-function reset(){
+function reset() {
   const slots = document.querySelectorAll(".slot");
   slots.forEach((slot) => {
     const symbols = slot.querySelector(".symbols");
@@ -207,7 +210,7 @@ document.getElementById("reset").addEventListener('click', resetlistados);
 
 function animateSymbols(symbols, finalPosition) {
   let startTimestamp;
-  const duration = 2000; // Duración de la animación en milisegundos
+  const duration = 1000; // Duración de la animación en milisegundos
 
   function step(timestamp) {
     if (!startTimestamp) {
@@ -226,95 +229,119 @@ function animateSymbols(symbols, finalPosition) {
 
   requestAnimationFrame(step);
 }
+function startAnimation() {
+  const slots = document.querySelectorAll(".slot");
+
+  slots.forEach((slot, index) => {
+    const symbols = slot.querySelector(".symbols");
+    const initialTop = symbols.getBoundingClientRect().top;
+    function animate() {
+      if (!spinning) {
+        const randomOffset = -Math.floor(Math.random() * (slotSymbols[index].length - 1) + 1) * (symbols.clientHeight / 50);
+        symbols.style.transform = `translateY(${initialTop + randomOffset}px)`;
+        requestAnimationFrame(animate);
+      }
+    }
+    animate();
+  });
+}
 
 
-
-
+function parar() {
+  spinning = true
+  stopAtDesiredSymbols()
+}
+document.getElementById("Stop").addEventListener('click', parar);
 
 function stopAtDesiredSymbols() {
-
+  reset()
   const hayRegistros = listados();
-
-  if (hayRegistros != null) {
-    let valoractual = listaactual();
-
-    const values = selectRecordBasedOnProbability(valoractual);
-
-    const Listado_Actual = valoractual.filter((actual) => actual.ID !== values.ID);
-    valoractual = Listado_Actual;
-    localStorage.setItem('Listado_Actual', JSON.stringify(valoractual));
-
-
-    let Listado_Sorteado = JSON.parse(localStorage.getItem('Listado_Sorteado'));
-
-    Listado_Sorteado.push(values);
-
-    // Store the updated Listado_Sorteado back in localStorage
-    localStorage.setItem('Listado_Sorteado', JSON.stringify(Listado_Sorteado));
-
-    let ganadores = Listado_Sorteado;
-
-    console.log(Listado_Actual);
-    console.log(ganadores);
-
-    var str = values.ID.toString();
-    let res = [];
-
-    for (var i = 0, len = str.length; i < len; i += 1) {
-      res.push(str.charAt(i));
-    }
-    console.log("[" + res + "]");
-
-    /*const value = res;
-    const symb = [];
-    
-    if (value.length === 1) {
-      for (var i = 0; i < 5; i++) {
-        symb.push("0");
-      }
-      for (var i = 0; i < value.length; i++) {
-        symb.push(value[i].toString());
-      }
-    } else if (value.length === 2) {
-      for (var i = 0; i < 4; i++) {
-        symb.push("0");
-      }
-      for (var i = 0; i < value.length; i++) {
-        symb.push(value[i].toString());
-      }
-    } else if (value.length === 3) {
-      for (var i = 0; i < 3; i++) {
-        symb.push("0");
-      }
-      for (var i = 0; i < value.length; i++) {
-        symb.push(value[i].toString());
-      }
-    } else if (value.length === 4) {
-      for (var i = 0; i < 2; i++) {
-        symb.push("0");
-      }
-      for (var i = 0; i < value.length; i++) {
-        symb.push(value[i].toString());
-      }
-    } else if (value.length === 5) {
-      symb.push("0");
-      for (var i = 0; i < value.length; i++) {
-        symb.push(value[i].toString());
-      }
-    } else if (value.length === 6) {
-      for (var i = 0; i < value.length; i++) {
-        symb.push(value[i].toString());
-      }
-    }*/
-
-    const formattedValue = padLeft(values.ID, 6, '0');
-    console.log(formattedValue)
-    //  console.log("[" + symb + "]");
-    stopAtSymbols(formattedValue, values.ID, values.NAME);
-
-    document.getElementById("arm").removeAttribute("disabled");
+  if (spinning === false) {
+    startAnimation()
   }
+  if (spinning === true) {
 
+
+    if (hayRegistros != null) {
+      let valoractual = listaactual();
+
+      const values = selectRecordBasedOnProbability(valoractual);
+
+      const Listado_Actual = valoractual.filter((actual) => actual.ID !== values.ID);
+      valoractual = Listado_Actual;
+      localStorage.setItem('Listado_Actual', JSON.stringify(valoractual));
+
+
+      let Listado_Sorteado = JSON.parse(localStorage.getItem('Listado_Sorteado'));
+
+      Listado_Sorteado.push(values);
+
+      // Store the updated Listado_Sorteado back in localStorage
+      localStorage.setItem('Listado_Sorteado', JSON.stringify(Listado_Sorteado));
+
+      let ganadores = Listado_Sorteado;
+
+      console.log(Listado_Actual);
+      console.log(ganadores);
+
+      var str = values.ID.toString();
+      let res = [];
+
+      for (var i = 0, len = str.length; i < len; i += 1) {
+        res.push(str.charAt(i));
+      }
+      console.log("[" + res + "]");
+
+      /*const value = res;
+      const symb = [];
+      
+      if (value.length === 1) {
+        for (var i = 0; i < 5; i++) {
+          symb.push("0");
+        }
+        for (var i = 0; i < value.length; i++) {
+          symb.push(value[i].toString());
+        }
+      } else if (value.length === 2) {
+        for (var i = 0; i < 4; i++) {
+          symb.push("0");
+        }
+        for (var i = 0; i < value.length; i++) {
+          symb.push(value[i].toString());
+        }
+      } else if (value.length === 3) {
+        for (var i = 0; i < 3; i++) {
+          symb.push("0");
+        }
+        for (var i = 0; i < value.length; i++) {
+          symb.push(value[i].toString());
+        }
+      } else if (value.length === 4) {
+        for (var i = 0; i < 2; i++) {
+          symb.push("0");
+        }
+        for (var i = 0; i < value.length; i++) {
+          symb.push(value[i].toString());
+        }
+      } else if (value.length === 5) {
+        symb.push("0");
+        for (var i = 0; i < value.length; i++) {
+          symb.push(value[i].toString());
+        }
+      } else if (value.length === 6) {
+        for (var i = 0; i < value.length; i++) {
+          symb.push(value[i].toString());
+        }
+      }*/
+
+      const formattedValue = padLeft(values.ID, 6, '0');
+      console.log(formattedValue)
+      //  console.log("[" + symb + "]");
+      stopAtSymbols(formattedValue, values.ID, values.NAME);
+
+      document.getElementById("arm").removeAttribute("disabled");
+    }
+  }
 }
 
 function padLeft(value, length, padChar) {
@@ -422,5 +449,3 @@ $(document).ready(function () {
     }, 4000); // 4 segundos
   });
 });
-
-
