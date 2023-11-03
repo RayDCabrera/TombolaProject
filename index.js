@@ -1,4 +1,3 @@
-
 const slotSymbols = [
   ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
   ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
@@ -95,6 +94,8 @@ function stopAtSymbols(desiredSymbols, id, nombre) {
         )
       );
     }
+
+    
 
     let exploding = false;
     const defaults = {
@@ -229,27 +230,41 @@ function animateSymbols(symbols, finalPosition) {
 
   requestAnimationFrame(step);
 }
+let animationFrameId = null; // Variable para almacenar el ID del frame de animación
+
 function startAnimation() {
   const slots = document.querySelectorAll(".slot");
 
   slots.forEach((slot, index) => {
     const symbols = slot.querySelector(".symbols");
     const initialTop = symbols.getBoundingClientRect().top;
+
     function animate() {
       if (!spinning) {
-        const randomOffset = -Math.floor(Math.random() * (slotSymbols[index].length - 1) + 1) * (symbols.clientHeight / 50);
+        const randomOffset = -Math.floor(Math.random() * (slotSymbols[index].length - 1) + 1) * (symbols.clientHeight / 20);
         symbols.style.transform = `translateY(${initialTop + randomOffset}px)`;
-        requestAnimationFrame(animate);
+        animationFrameId = requestAnimationFrame(animate); // Almacenar el ID del frame de animación
       }
     }
+
     animate();
   });
 }
 
+// Para detener la animación:
+function stopAnimation() {
+  if (animationFrameId !== null) {
+    cancelAnimationFrame(animationFrameId); // Cancelar la animación
+    animationFrameId = null; // Restablecer el ID del frame de animación
+  }
+}
+
 
 function parar() {
-  spinning = true
-  stopAtDesiredSymbols()
+  spinning = true;
+  stopAnimation(); //
+  reset();
+// stopAtDesiredSymbols()
 }
 document.getElementById("Stop").addEventListener('click', parar);
 
@@ -440,7 +455,9 @@ $(document).ready(function () {
     //    delay = setTimeout(function () { arm.removeClass('clicked') }, 500);
     $(this).attr("disabled", true);
     e.preventDefault();
-    stopAtDesiredSymbols();
+    //stopAtDesiredSymbols();
+    startAnimation()
+
 
     // Habilitar el botón nuevamente después de 2 segundos
     setTimeout(function () {
