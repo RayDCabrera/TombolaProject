@@ -92,63 +92,63 @@ function stopAtSymbols(desiredSymbols, id, nombre) {
         )
       );
     }
-    
-        let exploding = false;
-        const defaults = {
-          particleCount: 500,
-          spread: 80,
-          angle: 50,
-        };
-        const fire = (particleRatio, opts) => {
-          confetti(
-            Object.assign({}, defaults, opts, {
-              particleCount: Math.floor(defaults.particleCount * particleRatio),
-            })
-          );
-        };
-        symbols.addEventListener("transitionend", () => {
-          if (exploding) {
-            return;
-          }
-          exploding = true;
-          symbols.classList.add("animate__rubberBand");
-          window.setTimeout(() => {
-            fire(0.25, {
-              spread: 260,
-              startVelocity: 55,
-            });
-            fire(0.2, {
-              spread: 260,
-            });
-            fire(0.35, {
-              spread: 260,
-              decay: 0.91,
-              scalar: 0.8,
-            });
-            fire(0.1, {
-              spread: 260,
-              startVelocity: 25,
-              decay: 0.92,
-              scalar: 1.2,
-            });
-            fire(0.1, {
-              spread: 2600,
-              startVelocity: 45,
-            });
-            window.setTimeout(() => {
-              symbols.classList.remove("animate__rubberBand");
-              //  exploding = false;
-              Swal.fire('SOCIO NRO:', id.toString() + ' -- ' + nombre.toString())
-            }, 300);
-          }, 300);
-          //  Swal.fire('SOCIO NRO:', id.toString() + ' -- ' + nombre.toString())
+
+    let exploding = false;
+    const defaults = {
+      particleCount: 500,
+      spread: 80,
+      angle: 50,
+    };
+    const fire = (particleRatio, opts) => {
+      confetti(
+        Object.assign({}, defaults, opts, {
+          particleCount: Math.floor(defaults.particleCount * particleRatio),
+        })
+      );
+    };
+    symbols.addEventListener("transitionend", () => {
+      if (exploding) {
+        return;
+      }
+      exploding = true;
+      symbols.classList.add("animate__rubberBand");
+      window.setTimeout(() => {
+        fire(0.25, {
+          spread: 260,
+          startVelocity: 55,
         });
-      symbols.style.transition = "top 2s easy";
-      symbols.style.top = `${finalPosition}px`;
+        fire(0.2, {
+          spread: 260,
+        });
+        fire(0.35, {
+          spread: 260,
+          decay: 0.91,
+          scalar: 0.8,
+        });
+        fire(0.1, {
+          spread: 260,
+          startVelocity: 25,
+          decay: 0.92,
+          scalar: 1.2,
+        });
+        fire(0.1, {
+          spread: 2600,
+          startVelocity: 45,
+        });
+        window.setTimeout(() => {
+          symbols.classList.remove("animate__rubberBand");
+          //  exploding = false;
+          Swal.fire('SOCIO NRO:', id.toString() + ' -- ' + nombre.toString())
+        }, 300);
+      }, 300);
+      //  Swal.fire('SOCIO NRO:', id.toString() + ' -- ' + nombre.toString())
     });
-    spun = true;
-  }
- 
+    symbols.style.transition = "top 2s easy";
+    symbols.style.top = `${finalPosition}px`;
+  });
+  spun = true;
+}
+
 
 
 function listados() {
@@ -192,7 +192,7 @@ function resetlistados() {
   });
 }
 
-function reset(){
+function reset() {
   const slots = document.querySelectorAll(".slot");
   slots.forEach((slot) => {
     const symbols = slot.querySelector(".symbols");
