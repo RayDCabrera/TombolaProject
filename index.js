@@ -207,6 +207,18 @@ function reset() {
     spin();
   });
 }
+
+function resetspintofindresults() {
+  const slots = document.querySelectorAll(".slot");
+  slots.forEach((slot) => {
+    const symbols = slot.querySelector(".symbols");
+    symbols.style.transition = "none";
+    symbols.style.top = "0";
+    symbols.offsetHeight;
+    symbols.style.transition = "";
+  });
+}
+
 document.getElementById("reset").addEventListener('click', resetlistados);
 
 function animateSymbols(symbols, finalPosition) {
@@ -255,6 +267,7 @@ function startAnimation() {
 function stopAnimation() {
   if (animationFrameId !== null) {
     cancelAnimationFrame(animationFrameId); // Cancelar la animación
+    resresetspintofindresults() 
     animationFrameId = null; // Restablecer el ID del frame de animación
   }
 }
@@ -263,8 +276,8 @@ function stopAnimation() {
 function parar() {
   spinning = true;
   stopAnimation(); //
-  reset();
-// stopAtDesiredSymbols()
+  //reset();
+ stopAtDesiredSymbols()
 }
 document.getElementById("Stop").addEventListener('click', parar);
 
