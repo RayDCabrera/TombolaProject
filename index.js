@@ -232,8 +232,31 @@ function animateSymbols(symbols, finalPosition) {
 }
 let animationFrameId = null; // Variable para almacenar el ID del frame de animación
 
+/*function startAnimation() {
+  const slots = document.querySelectorAll(".slot");
+
+  slots.forEach((slot, index) => {
+    const symbols = slot.querySelector(".symbols");
+    const initialTop = symbols.getBoundingClientRect().top;
+    animate();
+    function animate() {
+      if (!spinning) {
+        const randomOffset = -Math.floor(Math.random() * (slotSymbols[index].length - 1) + 1) * (symbols.clientHeight / 20);
+        symbols.style.transform = `translateY(${initialTop + randomOffset}px)`;
+        animationFrameId = requestAnimationFrame(animate); // Almacenar el ID del frame de animación
+      }
+      else{
+        stopAnimation() 
+        reset();
+      }
+    }
+
+    //animate();
+  });
+}*/
 function startAnimation() {
   const slots = document.querySelectorAll(".slot");
+  let animationFrameIds = [];
 
   slots.forEach((slot, index) => {
     const symbols = slot.querySelector(".symbols");
@@ -242,14 +265,18 @@ function startAnimation() {
     function animate() {
       if (!spinning) {
         const randomOffset = -Math.floor(Math.random() * (slotSymbols[index].length - 1) + 1) * (symbols.clientHeight / 20);
-        symbols.style.transform = `translateY(${initialTop + randomOffset}px)`;
-        animationFrameId = requestAnimationFrame(animate); // Almacenar el ID del frame de animación
-      }
+        symbols.style.transform = `translateY(${initialTop + randomOffset}px`;
+        animationFrameIds[index] = requestAnimationFrame(animate);
+     }
     }
 
     animate();
+
   });
+
+  return animationFrameIds; // Devuelve un arreglo de identificadores de animación
 }
+let animationFrameIds = [];
 
 // Para detener la animación:
 function stopAnimation() {
@@ -262,18 +289,34 @@ function stopAnimation() {
 
 function parar() {
   spinning = true;
-  stopAnimation(); //
-  reset();
-// stopAtDesiredSymbols()
+if (animationFrameIds.length > 0) {
+    for (const animationFrameId of animationFrameIds) {
+      cancelAnimationFrame(animationFrameId);
+    }
+    animationFrameIds = [];
+  }
+ reset()
+}
+
+function resetearbusqueda(){
+  const slots = document.querySelectorAll(".slot");
+  slots.forEach((slot) => {
+    const symbols = slot.querySelector(".symbols");
+    symbols.style.transition = "none";
+    symbols.style.top = "0";
+    symbols.offsetHeight;
+    symbols.style.transition = "";
+    //stopAtDesiredSymbols()
+    spin()
+  });
 }
 document.getElementById("Stop").addEventListener('click', parar);
 
 function stopAtDesiredSymbols() {
-  reset()
   const hayRegistros = listados();
-  if (spinning === false) {
+ /* if (spinning === false) {
     startAnimation()
-  }
+  }*/
   if (spinning === true) {
 
 
