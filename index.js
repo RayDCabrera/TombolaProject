@@ -22,8 +22,8 @@ function spin() {
 
   slots.forEach((slot, index) => {
     const symbols = slot.querySelector(".symbols");
-    // const symbolHeight = symbols.querySelector(".symbol")?.clientHeight;
-    // const symbolCount = symbols.childElementCount;
+    //const symbolHeight = symbols.querySelector(".symbol")?.clientHeight;
+    //const symbolCount = symbols.childElementCount;
 
     symbols.innerHTML = "";
 
@@ -36,7 +36,7 @@ function spin() {
       });
     }
 
-    /*   const totalDistance = symbolCount * symbolHeight;
+    /*  const totalDistance = symbolCount * symbolHeight;
        const randomOffset =
          -Math.floor(Math.random() * (symbolCount - 1) + 1) *
          symbolHeight;
@@ -226,10 +226,94 @@ function animateSymbols(symbols, finalPosition) {
 
   requestAnimationFrame(step);
 }
+/*
+function startSpinning() {
 
+  const slots = document.querySelectorAll(".slot");
+  const intervalId = setInterval(() => {
+    slots.forEach((slot, index) => {
+      const symbols = slot.querySelector(".symbols");
+      const symbolHeight = symbols.querySelector(".symbol")?.clientHeight;
+      const symbolCount = symbols.childElementCount;
 
+      symbols.innerHTML = "";
+      symbols.appendChild(createSymbolElement("❓"));
 
+      for (let i = 0; i < 5; i++) {
+        slotSymbols[index].forEach((symbol) => {
+          symbols.appendChild(createSymbolElement(symbol));
+        });
+      }
 
+      const totalDistance = symbolCount * symbolHeight;
+      const randomOffset =
+        -Math.floor(Math.random() * (symbolCount - 1) + 1) * symbolHeight;
+      // symbols.style.transition = "top 0.5s ease-in-out"; // Añade transición suave
+      symbols.style.top = `${randomOffset}px`;
+    });
+  }, 1000); // Cambia el valor según la velocidad deseada
+
+  // Puedes ajustar la condición de parada según tus necesidades
+  /* setTimeout(() => {
+     clearInterval(intervalId); // Detener el giro después de cierto tiempo
+   }, 5000); // Detener después de 5 segundos (puedes ajustar este valor)*/
+//}
+
+const spinner = {
+  intervalId: null,
+  startSpinning: function () {
+    const slots = document.querySelectorAll(".slot");
+     this.intervalId = setInterval(() => {
+      slots.forEach((slot, index) => {
+        const symbols = slot.querySelector(".symbols");
+        const symbolHeight = symbols.querySelector(".symbol")?.clientHeight;
+        const symbolCount = symbols.childElementCount;
+
+        symbols.innerHTML = "";
+        symbols.appendChild(createSymbolElement("❓"));
+
+        for (let i = 0; i < 5; i++) {
+          slotSymbols[index].forEach((symbol) => {
+            symbols.appendChild(createSymbolElement(symbol));
+          });
+        }
+
+        const totalDistance = symbolCount * symbolHeight;
+        const randomOffset =
+          -Math.floor(Math.random() * (symbolCount - 1) + 1) * symbolHeight;
+        // symbols.style.transition = "top 0.5s ease-in-out"; // Añade transición suave
+        symbols.style.top = `${randomOffset}px`;
+      });
+    }, 1000); // Cambia el valor según la velocidad deseada
+
+  },
+
+  stopSpinning: function () {
+    setTimeout(() => {
+      clearInterval(this.intervalId); // Detener el giro después de cierto tiempo
+    }, 0.52);
+    resettombola();
+    console.log(1)
+  },
+
+};
+
+function resettombola() {
+  const slots = document.querySelectorAll(".slot");
+  slots.forEach((slot) => {
+    const symbols = slot.querySelector(".symbols");
+    symbols.style.transition = "none";
+    symbols.style.top = "0";
+    symbols.offsetHeight;
+    symbols.style.transition = "";
+   
+  });
+  stopAtDesiredSymbols();
+}
+
+document.getElementById('Stop').addEventListener('click', function () {
+  spinner.stopSpinning();
+});
 
 function stopAtDesiredSymbols() {
 
@@ -327,10 +411,6 @@ function padLeft(value, length, padChar) {
 }
 
 
-function validacion(value) {
-
-}
-
 function ListadoSorteados() {
   // Obtener los sorteos almacenados en localStorage
   const sorteados = JSON.parse(localStorage.getItem('Listado_Sorteado'));
@@ -413,13 +493,14 @@ $(document).ready(function () {
     //    delay = setTimeout(function () { arm.removeClass('clicked') }, 500);
     $(this).attr("disabled", true);
     e.preventDefault();
-    stopAtDesiredSymbols();
+    //stopAtDesiredSymbols();
+    spinner.startSpinning();
 
     // Habilitar el botón nuevamente después de 2 segundos
     setTimeout(function () {
       arm.removeClass('clicked');
       $('#arm').removeAttr("disabled");
-    }, 4000); // 4 segundos
+    }, 1000); // 4 segundos
   });
 });
 
