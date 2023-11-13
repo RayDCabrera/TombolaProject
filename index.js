@@ -22,8 +22,8 @@ function spin() {
 
   slots.forEach((slot, index) => {
     const symbols = slot.querySelector(".symbols");
-    // const symbolHeight = symbols.querySelector(".symbol")?.clientHeight;
-    // const symbolCount = symbols.childElementCount;
+     const symbolHeight = symbols.querySelector(".symbol")?.clientHeight;
+     const symbolCount = symbols.childElementCount;
 
     symbols.innerHTML = "";
 
@@ -36,12 +36,12 @@ function spin() {
       });
     }
 
-    /*   const totalDistance = symbolCount * symbolHeight;
+       const totalDistance = symbolCount * symbolHeight;
        const randomOffset =
          -Math.floor(Math.random() * (symbolCount - 1) + 1) *
          symbolHeight;
        symbols.style.top = `${randomOffset}px`;
- */
+ 
   });
 
 
@@ -143,7 +143,7 @@ function stopAtSymbols(desiredSymbols, id, nombre) {
       }, 300);
       //  Swal.fire('SOCIO NRO:', id.toString() + ' -- ' + nombre.toString())
     });
-    symbols.style.transition = "top 2s easy";
+    symbols.style.transition = "top 1s easy";
     symbols.style.top = `${finalPosition}px`;
   });
   spun = true;
@@ -187,7 +187,7 @@ function resetlistados() {
       symbols.style.top = "0";
       symbols.offsetHeight;
       symbols.style.transition = "";
-      spin();
+      //spin();
     });
   });
 }
@@ -196,6 +196,7 @@ function reset() {
   const slots = document.querySelectorAll(".slot");
   slots.forEach((slot) => {
     const symbols = slot.querySelector(".symbols");
+    symbols.innerHTML = 
     symbols.style.transition = "none";
     symbols.style.top = "0";
     symbols.offsetHeight;
@@ -207,7 +208,7 @@ document.getElementById("reset").addEventListener('click', resetlistados);
 
 function animateSymbols(symbols, finalPosition) {
   let startTimestamp;
-  const duration = 2000; // Duración de la animación en milisegundos
+  const duration = 1000; // Duración de la animación en milisegundos
 
   function step(timestamp) {
     if (!startTimestamp) {
@@ -327,9 +328,16 @@ function padLeft(value, length, padChar) {
 }
 
 
-function validacion(value) {
+
+  document.getElementById("Stop").addEventListener("click", stoptombo)
+
+function stoptombo(){
+  reset();
+  stopAtDesiredSymbols()
 
 }
+
+
 
 function ListadoSorteados() {
   // Obtener los sorteos almacenados en localStorage
@@ -413,13 +421,13 @@ $(document).ready(function () {
     //    delay = setTimeout(function () { arm.removeClass('clicked') }, 500);
     $(this).attr("disabled", true);
     e.preventDefault();
-    stopAtDesiredSymbols();
-
+    //stopAtDesiredSymbols();
+    spin();
     // Habilitar el botón nuevamente después de 2 segundos
     setTimeout(function () {
       arm.removeClass('clicked');
       $('#arm').removeAttr("disabled");
-    }, 4000); // 4 segundos
+    }, 1000); // 4 segundos
   });
 });
 
