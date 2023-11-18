@@ -79,9 +79,11 @@ function stopAtSymbols(desiredSymbols, id, nombre) {
     const symbolCount = symbols.childElementCount;
 
     // Iniciar la animación suave
+    const symbol = symbols.querySelector(".symbol");
 
 
     const stopSymbolIndex = slotSymbols[index].indexOf(desiredSymbols[index]);
+
 
     // Calculate the number of symbols to show before stopping
     const symbolsToShow = symbolCount * 2 + stopSymbolIndex;
@@ -141,7 +143,7 @@ function stopAtSymbols(desiredSymbols, id, nombre) {
         window.setTimeout(() => {
           symbols.classList.remove("animate__rubberBand");
           //  exploding = false;
-          Swal.fire('SOCIO NRO:', id.toString() + ' -- ' + nombre.toString())
+          Swal.fire('EL GANADOR ES:', id.toString() + ' -- ' + nombre.toString())
         }, 300);
       }, 300);
       //  Swal.fire('SOCIO NRO:', id.toString() + ' -- ' + nombre.toString())
@@ -269,38 +271,38 @@ const spinner = {
     const hayRegistros = listados();
 
     if (hayRegistros != null) {
-    const slots = document.querySelectorAll(".slot");
-    this.intervalId = setInterval(() => {
-      slots.forEach((slot, index) => {
-        const symbols = slot.querySelector(".symbols");
+      const slots = document.querySelectorAll(".slot");
+      this.intervalId = setInterval(() => {
+        slots.forEach((slot, index) => {
+          const symbols = slot.querySelector(".symbols");
 
-        const symbolHeight = symbols.querySelector(".symbol")?.clientHeight;
-        const symbolCount = symbols.childElementCount;
+          const symbolHeight = symbols.querySelector(".symbol")?.clientHeight;
+          const symbolCount = symbols.childElementCount;
 
-        symbols.innerHTML = "";
-        symbols.appendChild(createSymbolElement("❓"));
+          symbols.innerHTML = "";
+          symbols.appendChild(createSymbolElement("❓"));
 
-        for (let i = 0; i < 50; i++) {
-          slotSymbols[index].forEach((symbol) => {
-            symbols.appendChild(createSymbolElement(symbol));
-          });
-        }
+          for (let i = 0; i < 50; i++) {
+            slotSymbols[index].forEach((symbol) => {
+              symbols.appendChild(createSymbolElement(symbol));
+            });
+          }
 
-        const totalDistance = symbolCount * symbolHeight;
+          const totalDistance = symbolCount * symbolHeight;
 
 
-        const randomOffset =
-          -Math.floor(Math.random() * (symbolCount - 1) + 1) * symbolHeight;
-        // symbols.style.transition = "top 0.5s ease-in-out"; // Añade transición suave
-        //symbols.style.transition = "top 0.5s ease-in-out";
-        
-        symbols.style.top = `${randomOffset}px`;
-        
-      });
-    }, 1000); // Cambia el valor según la velocidad deseada
+          const randomOffset =
+            -Math.floor(Math.random() * (symbolCount - 1) + 1) * symbolHeight;
+          // symbols.style.transition = "top 0.5s ease-in-out"; // Añade transición suave
+          //symbols.style.transition = "top 0.5s ease-in-out";
 
-  }
-},
+          symbols.style.top = `${randomOffset}px`;
+
+        });
+      }, 1000); // Cambia el valor según la velocidad deseada
+
+    }
+  },
   stopSpinning: function () {
     setTimeout(() => {
       clearInterval(this.intervalId); // Detener el giro después de cierto tiempo
@@ -449,17 +451,36 @@ function ListadoSorteados() {
     // Limpiar el contenido actual del contenedor si es necesario
     resultContainer.innerHTML = '';
 
+    // Crear una matriz para almacenar los datos a exportar
+    const dataToExport = [['NRO SOCIO', 'NOMBRE']];
+
     // Iterar a través de los sorteos y mostrar la información
     sorteados.forEach((sorteado) => {
       const info = document.createElement('div');
-      info.textContent = `Socio Nro: ${sorteado.ID}`;
+      info.textContent = `Socio Nro: ${sorteado.ID}, ${sorteado.NAME}`;
       resultContainer.appendChild(info);
-    });
+      // Agregar datos a la matriz
+      dataToExport.push([sorteado.ID, sorteado.NAME]);
+
+    }); 
+        // Crear un objeto de trabajo de Excel
+        const ws = XLSX.utils.aoa_to_sheet(dataToExport);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sorteados');
+
+        // Descargar el archivo Excel
+        document.getElementById("descarga").addEventListener("click", () => {  XLSX.writeFile(wb, 'sorteados.xlsx');})
+       
+
+
+
     $('#miModal').modal('show');
+    document.getElementById('cerrar').addEventListener('click', () => { $('#miModal').modal('hide'); })
   } else {
+    $('#miModal').modal('show');
     resultContainer.textContent = 'No hay sorteos almacenados.';
     console.log('asd');
-   
+    document.getElementById('cerrar').addEventListener('click', () => { $('#miModal').modal('hide'); })
   }
 }
 

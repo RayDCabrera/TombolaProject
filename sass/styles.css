@@ -4,17 +4,30 @@
 body {
   background: #7ebf53;
   margin: 0;
-  padding: 0;
+  padding: 100px;
 }
 
 body.custom-background {
-  background-color: #7ebf53;
+  background-color: #ffffff;
 }
 
 header {
-  background-image: url(/images/portada.jpg);
-  background-size: 100% 100%;
-  height: 250px;
+  height: 100%;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; /* Ajusta el ancho según tus necesidades */
+  background-color: #f0f0f0; /* Puedes cambiar el color de fondo según tus preferencias */
+}
+
+.sidebar img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  width: auto;
 }
 
 .container {
@@ -23,19 +36,41 @@ header {
   align-items: center;
   justify-content: center;
   height: 50vh;
+  margin: 0;
+  padding: 50px;
+  box-sizing: border-box;
 }
 
+.custom-btn {
+  background-color: #28a745; /* Cambiar a tu color deseado, en este caso, verde */
+}
+
+/*.oliwi {
+	position: fixed;
+    border-style: groove !important;
+    border-width: 10px !important;
+    border-color: #760209 !important;
+    background-color: #a5040f !important;
+}*/
 .slotcontainer {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
-  margin-left: 20px;
+  margin-left: 200px;
   border-style: groove;
   border-color: #760209;
   background-color: #760209;
   border-width: 20px;
   border-radius: 20px;
+}
+
+.oliwi {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-left: 50px;
 }
 
 .slot {
@@ -93,17 +128,17 @@ button {
   }
 }
 #equation {
-  position: absolute;
+  position: relative;
   left: 50%;
   margin-left: -50px;
   top: 50%;
-  margin-top: -80px;
+  margin-top: 280px;
 }
 
 #shoulder {
   position: absolute;
-  top: 50px;
-  left: -360px;
+  top: -200px;
+  left: -420px;
   width: 80px;
   height: 100px;
   border-radius: 10px;
@@ -116,7 +151,7 @@ button {
 }
 
 #arm {
-  position: relative;
+  position: absolute;
   top: 10px;
   left: 10px;
   cursor: pointer;
@@ -220,4 +255,8 @@ button {
   40%, 60% {
     transform: translate3d(0, 4px, 0);
   }
+}
+.swal2-popup {
+  font-size: 1.6rem !important;
+  font-family: Georgia, serif;
 }/*# sourceMappingURL=styles.css.map */
