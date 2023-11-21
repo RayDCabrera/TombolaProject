@@ -66,6 +66,10 @@ function spin() {
 spin();
 
 let spun = false;
+
+
+
+
 function stopAtSymbols(desiredSymbols, id, nombre) {
   if (spun) {
     reset();
@@ -232,38 +236,6 @@ function animateSymbols(symbols, finalPosition) {
 
   requestAnimationFrame(step);
 }
-/*
-function startSpinning() {
- 
-  const slots = document.querySelectorAll(".slot");
-  const intervalId = setInterval(() => {
-    slots.forEach((slot, index) => {
-      const symbols = slot.querySelector(".symbols");
-      const symbolHeight = symbols.querySelector(".symbol")?.clientHeight;
-      const symbolCount = symbols.childElementCount;
- 
-      symbols.innerHTML = "";
-      symbols.appendChild(createSymbolElement("❓"));
- 
-      for (let i = 0; i < 5; i++) {
-        slotSymbols[index].forEach((symbol) => {
-          symbols.appendChild(createSymbolElement(symbol));
-        });
-      }
- 
-      const totalDistance = symbolCount * symbolHeight;
-      const randomOffset =
-        -Math.floor(Math.random() * (symbolCount - 1) + 1) * symbolHeight;
-      // symbols.style.transition = "top 0.5s ease-in-out"; // Añade transición suave
-      symbols.style.top = `${randomOffset}px`;
-    });
-  }, 1000); // Cambia el valor según la velocidad deseada
- 
-  // Puedes ajustar la condición de parada según tus necesidades
-  /* setTimeout(() => {
-     clearInterval(intervalId); // Detener el giro después de cierto tiempo
-   }, 5000); // Detener después de 5 segundos (puedes ajustar este valor)*/
-//}
 
 const spinner = {
   intervalId: null,
@@ -331,7 +303,7 @@ function resettombola() {
 document.getElementById('Stop').addEventListener('click', function () {
   spinner.stopSpinning();
 });
-
+let currentDatosIndex = 0; // Variable para realizar un seguimiento del índice actual en listaDatos
 function stopAtDesiredSymbols() {
 
   const hayRegistros = listados();
@@ -358,6 +330,7 @@ function stopAtDesiredSymbols() {
     console.log(Listado_Actual);
     console.log(ganadores);
 
+
     var str = values.ID.toString();
     let res = [];
 
@@ -366,47 +339,6 @@ function stopAtDesiredSymbols() {
     }
     console.log("[" + res + "]");
 
-    /*const value = res;
-    const symb = [];
-    
-    if (value.length === 1) {
-      for (var i = 0; i < 5; i++) {
-        symb.push("0");
-      }
-      for (var i = 0; i < value.length; i++) {
-        symb.push(value[i].toString());
-      }
-    } else if (value.length === 2) {
-      for (var i = 0; i < 4; i++) {
-        symb.push("0");
-      }
-      for (var i = 0; i < value.length; i++) {
-        symb.push(value[i].toString());
-      }
-    } else if (value.length === 3) {
-      for (var i = 0; i < 3; i++) {
-        symb.push("0");
-      }
-      for (var i = 0; i < value.length; i++) {
-        symb.push(value[i].toString());
-      }
-    } else if (value.length === 4) {
-      for (var i = 0; i < 2; i++) {
-        symb.push("0");
-      }
-      for (var i = 0; i < value.length; i++) {
-        symb.push(value[i].toString());
-      }
-    } else if (value.length === 5) {
-      symb.push("0");
-      for (var i = 0; i < value.length; i++) {
-        symb.push(value[i].toString());
-      }
-    } else if (value.length === 6) {
-      for (var i = 0; i < value.length; i++) {
-        symb.push(value[i].toString());
-      }
-    }*/
 
     const formattedValue = padLeft(values.ID, 6, '0');
     console.log(formattedValue)
@@ -414,8 +346,48 @@ function stopAtDesiredSymbols() {
     stopAtSymbols(formattedValue, values.ID, values.NAME);
 
     document.getElementById("arm").removeAttribute("disabled");
+     tableganador(values)
+
   }
 
+}
+
+
+function tableganador(values) {
+  // Obtener el dato actual de listaDatos según el índice actual
+  const currentDato = listaDatos[currentDatosIndex];
+
+  // Concatenar la información del ganador con los datos del dato actual
+  const ganadorConDatos = {
+    ...values,
+    ...currentDato
+  };
+
+
+  // Create a new row for the winner
+  const newRow = document.createElement("tr");
+
+  // Add columns for each piece of data (adjust the properties accordingly)
+  const idColumn = document.createElement("td");
+  idColumn.textContent = ganadorConDatos.ID;
+  newRow.appendChild(idColumn);
+
+  const nameColumn = document.createElement("td");
+  nameColumn.textContent = ganadorConDatos.NAME;
+  newRow.appendChild(nameColumn);
+
+  const PremioColumn = document.createElement("td");
+  PremioColumn.textContent = ganadorConDatos["Descripción"];
+  newRow.appendChild(PremioColumn);
+
+  setTimeout(function() {
+    const tableBody = document.querySelector("#tablaganador");
+    tableBody.appendChild(newRow);
+
+    currentDatosIndex = (currentDatosIndex + 1) % listaDatos.length;
+  }, 3000); 
+
+  currentDatosIndex = (currentDatosIndex + 1) % listaDatos.length;
 }
 
 function padLeft(value, length, padChar) {
@@ -462,15 +434,15 @@ function ListadoSorteados() {
       // Agregar datos a la matriz
       dataToExport.push([sorteado.ID, sorteado.NAME]);
 
-    }); 
-        // Crear un objeto de trabajo de Excel
-        const ws = XLSX.utils.aoa_to_sheet(dataToExport);
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'Sorteados');
+    });
+    // Crear un objeto de trabajo de Excel
+    const ws = XLSX.utils.aoa_to_sheet(dataToExport);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sorteados');
 
-        // Descargar el archivo Excel
-        document.getElementById("descarga").addEventListener("click", () => {  XLSX.writeFile(wb, 'sorteados.xlsx');})
-       
+    // Descargar el archivo Excel
+    document.getElementById("descarga").addEventListener("click", () => { XLSX.writeFile(wb, 'sorteados.xlsx'); })
+
 
 
 
@@ -488,6 +460,7 @@ document.getElementById('Sorteados').addEventListener('click', ListadoSorteados)
 
 
 let records = [];
+
 document.getElementById('csvFileInput').addEventListener('change', (event) => {
   const file = event.target.files[0];
   if (file) {
@@ -553,3 +526,57 @@ $(document).ready(function () {
     }, 800); // 4 segundos
   });
 });
+
+//<--------------Archivo de Premios-----------------//
+/*Papa.parse('premios.csv', {
+  download: true,
+  header: true,
+  complete: function(results) {
+      var tabla = document.getElementById('tablaDatos');
+      var datos = results.data;
+
+      // Encabezados de la tabla
+      var encabezados = Object.keys(datos[0]);
+      var encabezadoRow = tabla.insertRow();
+      encabezados.forEach(function(encabezado) {
+          var th = document.createElement('th');
+          th.textContent = encabezado;
+          encabezadoRow.appendChild(th);
+      });
+
+      // Datos de la tabla
+      datos.forEach(function(fila) {
+          var tr = tabla.insertRow();
+          encabezados.forEach(function(encabezado) {
+              var td = tr.insertCell();
+              td.textContent = fila[encabezado];
+          });
+      });
+  }
+});*/
+
+
+let listaDatos = [];
+parsePremios()
+function parsePremios() {
+
+  Papa.parse('premios.csv', {
+    download: true,
+    header: true,
+    complete: function (results) {
+      var datos = results.data;
+
+      // Lista para almacenar los datos
+
+
+      // Agregar datos a la lista
+      datos.forEach(function (fila) {
+        var objetoFila = {};
+        for (var key in fila) {
+          objetoFila[key] = fila[key];
+        }
+        listaDatos.push(objetoFila);
+      });
+    }
+  });
+}

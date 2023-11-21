@@ -12,7 +12,8 @@ body.custom-background {
 }
 
 header {
-	height: 100%;
+	height: 0px;
+	width: max-content;
 }
 
 .sidebar {
@@ -30,22 +31,211 @@ header {
 	width: auto;
   }
 
+ .container, .container3{
+	flex-direction: row;
+ } 
+
 
 .container {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 50vh;
-	margin: 0;
-	padding: 50px;
+	padding: 5px;
 	box-sizing: border-box;
 }
 
-.custom-btn {
+.container3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	margin-top: 0;
+	box-sizing: border-box;
+	margin-bottom: 0;
+}
+
+
+
+.container2 {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+    justify-content: center;
+	box-sizing: border-box;
+	margin-bottom: 10px;
+}
+
+//----------------------------TABLA-------------------------------//
+
+.container1{
+	width: max-content;
+	background-color:white !important;
+	max-height: 400px; /* Set a fixed maximum height for the table container */
+    overflow-y: auto; /* Enable vertical scrolling when content overflows */
+}
+
+#premiopurete{
+	width: 100%;
+	text-align: center;
+}
+
+#tablaDatos{
+	position: fixed;
+	width: 70%;
+	align-items: center;
+	text-align: center;
+    left: 50; /* Adjust based on your design */
+}
+
+th{
+	text-transform: uppercase;
+	background: #D3EBCE;
+	background-size: contain;
+	text-align: center;
+}
+
+th, td{
+	padding: 5px 12px ;
+	text-align: center;
+}
+
+tr:nth-child(odd){
+	background-color: #e0e0e0;
+
+}
+//----------------------------------------------------------------//
+
+//-------------------------BOTON STOP-----------------------------//
+/*.custom-btn {
+	--primary: 255, 90, 120;
+	--secondary: 150, 50, 60;
+	width: 60px;
+	height: 50px;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	user-select: none;
+	touch-action: manipulation;
+	outline: 10px solid rgb(var(--primary), .5);
+	border-radius: 100%;
+	position: relative;
+	transition: .3s;
+  }
+  
+  .custom-btn .back {
+	background: rgb(var(--secondary));
+	border-radius: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+  }
+  
+  .custom-btn .front {
+	background: linear-gradient(0deg, rgba(var(--primary), .6) 20%, rgba(var(--primary)) 50%);
+	box-shadow: 0 .5em 1em -0.2em rgba(var(--secondary), .5);
+	border-radius: 100%;
+	position: absolute;
+	border: 1px solid rgb(var(--secondary));
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.2rem;
+	font-weight: 600;
+	font-family: inherit;
+	transform: translateY(-15%);
+	transition: .15s;
+	color: rgb(var(--secondary));
+  }
+  
+  .custom-btn :active .front {
+	transform: translateY(0%);
+	box-shadow: 0 0;
+  }*/
+  .btn-class-name {
+	--primary: 255, 90, 120;
+	--secondary: 150, 50, 60;
+	width: 60px;
+	height: 50px;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+		-ms-user-select: none;
+			user-select: none;
+	-ms-touch-action: manipulation;
+		touch-action: manipulation;
+	outline: 10px solid rgb(var(--primary), .5);
+	border-radius: 100%;
+	position: relative;
+	-webkit-transition: .3s;
+	transition: .3s;
+	left: -50px
+  }
+  
+  .btn-class-name .back {
+	background: rgb(var(--secondary));
+	border-radius: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+  }
+  
+  .btn-class-name .front {
+	background: -webkit-gradient(linear, left bottom, left top, color-stop(20%, rgba(var(--primary), .6)), color-stop(50%, rgba(var(--primary))));
+	background: linear-gradient(0deg, rgba(var(--primary), .6) 20%, rgba(var(--primary)) 50%);
+	-webkit-box-shadow: 0 .5em 1em -0.2em rgba(var(--secondary), .5);
+			box-shadow: 0 .5em 1em -0.2em rgba(var(--secondary), .5);
+	border-radius: 100%;
+	position: absolute;
+	border: 1px solid rgb(var(--secondary));
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+		-ms-flex-pack: center;
+			justify-content: center;
+	-webkit-box-align: center;
+		-ms-flex-align: center;
+			align-items: center;
+	font-size: 1.2rem;
+	font-weight: 600;
+	font-family: inherit;
+	-webkit-transform: translateY(-15%);
+		-ms-transform: translateY(-15%);
+			transform: translateY(-15%);
+	-webkit-transition: .15s;
+	transition: .15s;
+	color: rgb(var(--secondary));
+  }
+  
+  .btn-class-name:active .front {
+	-webkit-transform: translateY(0%);
+		-ms-transform: translateY(0%);
+			transform: translateY(0%);
+	-webkit-box-shadow: 0 0;
+			box-shadow: 0 0;
+  }
+
+
+
+
+/*.custom-btn {
     background-color: #28a745; /* Cambiar a tu color deseado, en este caso, verde */
    
-  }
+  /*}*/
 
 /*.oliwi {
 	position: fixed;
@@ -57,22 +247,25 @@ header {
 
 .slotcontainer {
     display: flex;
+	position: relative;
     justify-content: center;	
     align-items: center;
-    margin-bottom: 20px;
-    margin-left: 200px;
+    margin-bottom: 0px;
+	
+    margin-left: 0px;
 	border-style: groove;
-	border-color: #760209;
-	background-color: #760209;
+	border-color: #466009;
+	background-color: #466009;
 	border-width: 20px;
 	border-radius: 20px ;
 	
 }
 .oliwi{
 	display: flex;
+	position: relative;
     justify-content: center;	
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     margin-left: 50px;
 	
 }
@@ -218,18 +411,10 @@ $red: #760209;
 }
 
 @include spin;
-#equation {
-  position: relative;
-  left: 50%;
-  margin-left: -50px;
-  top: 50%;
-  margin-top: 280px;
-}
-	
 #shoulder {
-	position: absolute;
-	top: -200px;
-	left: -420px;
+	position: relative;
+	top: -10px;
+	//left: -420px;
 	width: 80px;
 	height: 100px;
 	border-radius: 10px;
@@ -255,7 +440,7 @@ $red: #760209;
 	&:before {
 		//*** POLE ***//
 		content: '';
-		position: absolute;
+		position: absolute !important;
 		top: -40px;
 		left: 16px;
 		width: 16px;
