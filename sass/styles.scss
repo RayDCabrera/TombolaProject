@@ -3,7 +3,7 @@
 body {
    background: #7ebf53;
 	
-    margin: 0;
+    margin: 0px;
     padding: 100px;
 }
 
@@ -37,19 +37,24 @@ header {
 
 
 .container {
-    display: flex;
+    display: table;
     align-items: center;
     justify-content: center;
-    height: 50vh;
+    height: 70vh;
 	padding: 5px;
 	box-sizing: border-box;
+	background-color:rgb(177, 241, 164);
+	border-radius: 12px 12px 12px 12px;
+	overflow: auto;
+	width: 100%;
+	padding-top: 30px;
 }
 
 .container3 {
     display: flex;
     align-items: center;
     justify-content: center;
-	margin-top: 0;
+
 	box-sizing: border-box;
 	margin-bottom: 0;
 }
@@ -72,19 +77,22 @@ header {
 	background-color:white !important;
 	max-height: 400px; /* Set a fixed maximum height for the table container */
     overflow-y: auto; /* Enable vertical scrolling when content overflows */
+	box-sizing: border-box;
 }
 
 #premiopurete{
 	width: 100%;
 	text-align: center;
+	box-sizing: border-box;
+
 }
 
 #tablaDatos{
 	position: fixed;
-	width: 70%;
+	width: 65%;
 	align-items: center;
 	text-align: center;
-    left: 50; /* Adjust based on your design */
+    left: 350px; /* Adjust based on your design */
 }
 
 th{
@@ -97,6 +105,8 @@ th{
 th, td{
 	padding: 5px 12px ;
 	text-align: center;
+	text-overflow: ellipsis; 
+	overflow: hidden;
 }
 
 tr:nth-child(odd){

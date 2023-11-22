@@ -346,14 +346,16 @@ function stopAtDesiredSymbols() {
     stopAtSymbols(formattedValue, values.ID, values.NAME);
 
     document.getElementById("arm").removeAttribute("disabled");
-     tableganador(values)
+    tableganador(values)
 
   }
 
 }
 
-
+let paginaActual = 1;
+const filasPorPagina = 10;
 function tableganador(values) {
+  const tableBody = document.querySelector("#tablaganador");
   // Obtener el dato actual de listaDatos según el índice actual
   const currentDato = listaDatos[currentDatosIndex];
 
@@ -379,16 +381,51 @@ function tableganador(values) {
   const PremioColumn = document.createElement("td");
   PremioColumn.textContent = ganadorConDatos["Descripción"];
   newRow.appendChild(PremioColumn);
+  if (paginaActual * filasPorPagina >= tableBody.children.length) {
+    setTimeout(function () {
+      const tableBody = document.querySelector("#tablaganador");
+      tableBody.appendChild(newRow);
 
-  setTimeout(function() {
-    const tableBody = document.querySelector("#tablaganador");
-    tableBody.appendChild(newRow);
-
-    currentDatosIndex = (currentDatosIndex + 1) % listaDatos.length;
-  }, 3000); 
-
+      currentDatosIndex = (currentDatosIndex + 1) % listaDatos.length;
+    }, 3000);
+  }
   currentDatosIndex = (currentDatosIndex + 1) % listaDatos.length;
 }
+
+
+function mostrarPagina(pagina) {
+  const tableBody = document.querySelector("#tablaganador");
+  const filas = tableBody.children;
+  const inicio = (pagina - 1) * filasPorPagina;
+  const fin = pagina * filasPorPagina;
+
+  for (let i = 0; i < filas.length; i++) {
+    filas[i].style.display = (i >= inicio && i < fin) ? 'table-row' : 'none';
+  }
+}
+
+// Funciones para cambiar de página
+function paginaAnterior() {
+  if (paginaActual > 1) {
+    paginaActual--;
+    mostrarPagina(paginaActual);
+  }
+}
+
+function paginaSiguiente() {
+  const tableBody = document.querySelector("#tablaganador");
+  const filas = tableBody.children;
+  const totalPaginas = Math.ceil(filas.length / filasPorPagina);
+
+  if (paginaActual < totalPaginas) {
+    paginaActual++;
+    mostrarPagina(paginaActual);
+  }
+}
+
+document.getElementById("paginasig").addEventListener("click",paginaSiguiente)
+
+document.getElementById("paginaant").addEventListener("click",paginaAnterior)
 
 function padLeft(value, length, padChar) {
   const strValue = value.toString();
