@@ -389,7 +389,6 @@ function tableganador(values) {
       currentDatosIndex = (currentDatosIndex + 1) % listaDatos.length;
     }, 3000);
   }
-  currentDatosIndex = (currentDatosIndex + 1) % listaDatos.length;
 }
 
 

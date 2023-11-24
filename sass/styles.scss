@@ -12,22 +12,34 @@ body.custom-background {
 }
 
 header {
-	height: 0px;
+  position: fixed;
+	height: 100px;
 	width: max-content;
+  background-color: white;
+  text-align: center;
+  justify-content: center;
+}
+
+#Titulo{
+  position: fixed;
+  font-size: 80px;
+  font-weight: bold;
+  text-align: center;
+  align-items: center;
+  color: green;
+  left: 200px;
 }
 
 .sidebar {
 	position: fixed;
+  justify-content: center;
+  text-align: center;
 	top: 0;
-	left: 0;
+	left: 25%;
 	width: 100%; /* Ajusta el ancho según tus necesidades */
-	background-color: #f0f0f0; /* Puedes cambiar el color de fondo según tus preferencias */
-  }
-
-  .sidebar img {
-	max-width: 100%;
-	height: auto;
-	display: block;
+	background-color: #ffffff; /* Puedes cambiar el color de fondo según tus preferencias */ } .sidebar img { max-width: 50%;
+	height: 200px;
+	display: flex;
 	width: auto;
   }
 
@@ -37,10 +49,12 @@ header {
 
 
 .container {
-    display: table;
-    align-items: center;
-    justify-content: center;
-    height: 70vh;
+  position: fixed;
+  left:300px;
+  display: table;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
 	padding: 5px;
 	box-sizing: border-box;
 	background-color:rgb(177, 241, 164);
@@ -48,13 +62,14 @@ header {
 	overflow: auto;
 	width: 100%;
 	padding-top: 30px;
+  margin-top: 200px;
 }
 
 .container3 {
     display: flex;
     align-items: center;
     justify-content: center;
-
+	position: inherit;
 	box-sizing: border-box;
 	margin-bottom: 0;
 }
@@ -70,13 +85,24 @@ header {
 	margin-bottom: 10px;
 }
 
+.container4{
+	display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    
+	padding : 200px;
+	padding-bottom: 0px;
+}
+
 //----------------------------TABLA-------------------------------//
 
 .container1{
 	width: max-content;
-	background-color:white !important;
+	background-color:#D3EBCE ;
 	max-height: 400px; /* Set a fixed maximum height for the table container */
-    overflow-y: auto; /* Enable vertical scrolling when content overflows */
+    //overflow-y: auto; /* Enable vertical scrolling when content overflows */
 	box-sizing: border-box;
 }
 
@@ -84,15 +110,15 @@ header {
 	width: 100%;
 	text-align: center;
 	box-sizing: border-box;
-
+	align-items: center;
 }
 
 #tablaDatos{
-	position: fixed;
-	width: 65%;
+	position: relative;
+	width: 70%;
 	align-items: center;
 	text-align: center;
-    left: 350px; /* Adjust based on your design */
+    left: 250px; /* Adjust based on your design */
 }
 
 th{
@@ -116,57 +142,7 @@ tr:nth-child(odd){
 //----------------------------------------------------------------//
 
 //-------------------------BOTON STOP-----------------------------//
-/*.custom-btn {
-	--primary: 255, 90, 120;
-	--secondary: 150, 50, 60;
-	width: 60px;
-	height: 50px;
-	border: none;
-	outline: none;
-	cursor: pointer;
-	user-select: none;
-	touch-action: manipulation;
-	outline: 10px solid rgb(var(--primary), .5);
-	border-radius: 100%;
-	position: relative;
-	transition: .3s;
-  }
-  
-  .custom-btn .back {
-	background: rgb(var(--secondary));
-	border-radius: 100%;
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-  }
-  
-  .custom-btn .front {
-	background: linear-gradient(0deg, rgba(var(--primary), .6) 20%, rgba(var(--primary)) 50%);
-	box-shadow: 0 .5em 1em -0.2em rgba(var(--secondary), .5);
-	border-radius: 100%;
-	position: absolute;
-	border: 1px solid rgb(var(--secondary));
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 1.2rem;
-	font-weight: 600;
-	font-family: inherit;
-	transform: translateY(-15%);
-	transition: .15s;
-	color: rgb(var(--secondary));
-  }
-  
-  .custom-btn :active .front {
-	transform: translateY(0%);
-	box-shadow: 0 0;
-  }*/
+
   .btn-class-name {
 	--primary: 255, 90, 120;
 	--secondary: 150, 50, 60;
