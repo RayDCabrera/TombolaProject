@@ -495,6 +495,14 @@ function ListadoSorteados() {
 document.getElementById('Sorteados').addEventListener('click', ListadoSorteados);
 
 
+function ocultarCSV () {
+  document.getElementById('csvFileInput').addEventListener('change', (event) => {
+    var elemento = document.getElementById('csvFileInput');
+    elemento.style.display = 'none';
+  });
+}
+ocultarCSV();
+
 let records = [];
 
 document.getElementById('csvFileInput').addEventListener('change', (event) => {
