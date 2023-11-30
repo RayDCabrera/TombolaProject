@@ -354,6 +354,7 @@ function stopAtDesiredSymbols() {
 
 let paginaActual = 1;
 const filasPorPagina = 10;
+
 function tableganador(values) {
   const tableBody = document.querySelector("#tablaganador");
   // Obtener el dato actual de listaDatos según el índice actual
@@ -383,14 +384,40 @@ function tableganador(values) {
   newRow.appendChild(PremioColumn);
   if (paginaActual * filasPorPagina >= tableBody.children.length) {
     setTimeout(function () {
-      const tableBody = document.querySelector("#tablaganador");
-      tableBody.appendChild(newRow);
-
+      const firstRow = tableBody.firstChild; // Obtener el primer elemento actual
+      if (firstRow) {
+        tableBody.insertBefore(newRow, firstRow); // Insertar antes del primer elemento actual
+      } else {
+        tableBody.appendChild(newRow); // Si no hay elementos, simplemente añadir
+      }
       currentDatosIndex = (currentDatosIndex + 1) % listaDatos.length;
     }, 3000);
   }
 }
 
+function cargarTabla(){
+  const tableBody = document.querySelector("#tablaganador");
+  tableBody.innerHTML = ''; // Limpiar la tabla antes de cargar los datos
+
+  // Recorrer la lista de datos y agregar cada fila a la tabla
+  listaDatos.forEach((dato) => {
+    const newRow = document.createElement("tr");
+
+    const idColumn = document.createElement("td");
+    idColumn.textContent = dato.ID;
+    newRow.appendChild(idColumn);
+
+    const nameColumn = document.createElement("td");
+    nameColumn.textContent = dato.NAME;
+    newRow.appendChild(nameColumn);
+
+    const PremioColumn = document.createElement("td");
+    PremioColumn.textContent = dato["Descripción"];
+    newRow.appendChild(PremioColumn);
+
+    tableBody.appendChild(newRow);
+  });
+}
 
 function mostrarPagina(pagina) {
   const tableBody = document.querySelector("#tablaganador");
@@ -601,7 +628,11 @@ $(document).ready(function () {
 
 
 let listaDatos = [];
+if (localStorage.getItem('listaDatos')) {
+  listaDatos = JSON.parse(localStorage.getItem('listaDatos'));
+} else {
 parsePremios()
+}
 function parsePremios() {
 
   Papa.parse('premios.csv', {
@@ -621,6 +652,9 @@ function parsePremios() {
         }
         listaDatos.push(objetoFila);
       });
+      localStorage.setItem('listaDatos', JSON.stringify(listaDatos));
+      cargarTabla();
     }
   });
+
 }
