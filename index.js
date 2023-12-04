@@ -1,4 +1,7 @@
+import { spin, stopAtSymbols, stopAtDesiredSymbols,spinner} from './spin.js';
 
+import { tableganador, cargarTabla } from './tabla.js';
+/*
 const slotSymbols = [
   ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
   ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
@@ -6,7 +9,7 @@ const slotSymbols = [
   ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
   ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
   ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
-];
+];*/
 function createSymbolElement(symbol) {
   const div = document.createElement("div");
   div.classList.add("symbol");
@@ -15,40 +18,40 @@ function createSymbolElement(symbol) {
   return div;
 }
 
-function spin() {
+// function spin() {
 
-  const slots = document.querySelectorAll(".slot");
-  let completedSlots = 0;
+//   const slots = document.querySelectorAll(".slot");
+//   let completedSlots = 0;
 
-  slots.forEach((slot, index) => {
-    const symbols = slot.querySelector(".symbols");
-    const symbolHeight = symbols.querySelector(".symbol")?.clientHeight;
-    const symbolCount = symbols.childElementCount;
-    //const symbolHeight = symbols.querySelector(".symbol")?.clientHeight;
-    //const symbolCount = symbols.childElementCount;
+//   slots.forEach((slot, index) => {
+//     const symbols = slot.querySelector(".symbols");
+//     const symbolHeight = symbols.querySelector(".symbol")?.clientHeight;
+//     const symbolCount = symbols.childElementCount;
+//     //const symbolHeight = symbols.querySelector(".symbol")?.clientHeight;
+//     //const symbolCount = symbols.childElementCount;
 
-    symbols.innerHTML = "";
+//     symbols.innerHTML = "";
 
-    symbols.appendChild(createSymbolElement("❓"));
-
-
-    for (let i = 0; i < 5; i++) {
-      slotSymbols[index].forEach((symbol) => {
-        symbols.appendChild(createSymbolElement(symbol));
-      });
-    }
-
-    const totalDistance = symbolCount * symbolHeight;
-    /*  const totalDistance = symbolCount * symbolHeight;
-       const randomOffset =
-         -Math.floor(Math.random() * (symbolCount - 1) + 1) *
-         symbolHeight;
-       symbols.style.top = `${randomOffset}px`;*/
-
-  });
+//     symbols.appendChild(createSymbolElement("❓"));
 
 
-}
+//     for (let i = 0; i < 5; i++) {
+//       slotSymbols[index].forEach((symbol) => {
+//         symbols.appendChild(createSymbolElement(symbol));
+//       });
+//     }
+
+//     const totalDistance = symbolCount * symbolHeight;
+//     /*  const totalDistance = symbolCount * symbolHeight;
+//        const randomOffset =
+//          -Math.floor(Math.random() * (symbolCount - 1) + 1) *
+//          symbolHeight;
+//        symbols.style.top = `${randomOffset}px`;*/
+
+//   });
+
+
+// }
 
 
 
@@ -63,361 +66,389 @@ function spin() {
   });
 }*/
 
-spin();
+//spin();
 
 let spun = false;
 
 
 
 
-function stopAtSymbols(desiredSymbols, id, nombre) {
-  if (spun) {
-    reset();
-  }
-  const slots = document.querySelectorAll(".slot");
-  let completedSlots = 0;
+// function stopAtSymbols(desiredSymbols, id, nombre) {
+//   if (spun) {
+//     reset();
+//   }
+//   const slots = document.querySelectorAll(".slot");
+//   let completedSlots = 0;
 
-  slots.forEach((slot, index) => {
-    const symbols = slot.querySelector(".symbols");
-    const symbolHeight = symbols.querySelector(".symbol")?.clientHeight;
-    const symbolCount = symbols.childElementCount;
+//   slots.forEach((slot, index) => {
+//     const symbols = slot.querySelector(".symbols");
+//     const symbolHeight = symbols.querySelector(".symbol")?.clientHeight;
+//     const symbolCount = symbols.childElementCount;
 
-    // Iniciar la animación suave
-    const symbol = symbols.querySelector(".symbol");
-
-
-    const stopSymbolIndex = slotSymbols[index].indexOf(desiredSymbols[index]);
+//     // Iniciar la animación suave
+//     const symbol = symbols.querySelector(".symbol");
 
 
-    // Calculate the number of symbols to show before stopping
-    const symbolsToShow = symbolCount * 2 + stopSymbolIndex;
-    const finalPosition = stopSymbolIndex * symbolHeight * -1;
-    symbols.innerHTML = "";
-    animateSymbols(symbols, finalPosition);
-    for (let i = 0; i < symbolsToShow; i++) {
-      symbols.appendChild(
-        createSymbolElement(
-          slotSymbols[index][i % symbolCount]
-        )
-      );
-    }
-
-    let exploding = false;
-    const defaults = {
-      particleCount: 500,
-      spread: 80,
-      angle: 50,
-    };
-    const fire = (particleRatio, opts) => {
-      confetti(
-        Object.assign({}, defaults, opts, {
-          particleCount: Math.floor(defaults.particleCount * particleRatio),
-        })
-      );
-    };
-    symbols.addEventListener("transitionend", () => {
-      if (exploding) {
-        return;
-      }
-      exploding = true;
-      symbols.classList.add("animate__rubberBand");
-      window.setTimeout(() => {
-        fire(0.25, {
-          spread: 260,
-          startVelocity: 55,
-        });
-        fire(0.2, {
-          spread: 260,
-        });
-        fire(0.35, {
-          spread: 260,
-          decay: 0.91,
-          scalar: 0.8,
-        });
-        fire(0.1, {
-          spread: 260,
-          startVelocity: 25,
-          decay: 0.92,
-          scalar: 1.2,
-        });
-        fire(0.1, {
-          spread: 2600,
-          startVelocity: 45,
-        });
-        window.setTimeout(() => {
-          symbols.classList.remove("animate__rubberBand");
-          //  exploding = false;
-          Swal.fire('EL GANADOR ES:', id.toString() + ' -- ' + nombre.toString())
-        }, 300);
-      }, 300);
-      //  Swal.fire('SOCIO NRO:', id.toString() + ' -- ' + nombre.toString())
-    });
-    symbols.style.transition = "top 1s easy";
-    symbols.style.top = `${finalPosition}px`;
-  });
-  spun = true;
-}
+//     const stopSymbolIndex = slotSymbols[index].indexOf(desiredSymbols[index]);
 
 
+//     // Calculate the number of symbols to show before stopping
+//     const symbolsToShow = symbolCount * 2 + stopSymbolIndex;
+//     const finalPosition = stopSymbolIndex * symbolHeight * -1;
+//     symbols.innerHTML = "";
+//     animateSymbols(symbols, finalPosition);
+//     for (let i = 0; i < symbolsToShow; i++) {
+//       symbols.appendChild(
+//         createSymbolElement(
+//           slotSymbols[index][i % symbolCount]
+//         )
+//       );
+//     }
 
-function listados() {
-  localStorage.setItem('Listado_Participantes', JSON.stringify(records));
-  if (records == false) {
-    // console.log("ola",records)
-    document.getElementById("arm").disabled = true;
-    // alert("POR FAVOR SELECCIONE PRIMERO EL ARCHIVO CSV");
-    Swal.fire('POR FAVOR SELECCIONE EL ARCHIVO')
-    return null;
-
-  } else {
-    let participantes = JSON.parse(localStorage.getItem('Listado_Participantes'));
-    return participantes;
-  }
-}
-
-function listaactual() {
-  // localStorage.setItem('Listado_Actual', JSON.stringify(listados(participantes)));
-  let actual = JSON.parse(localStorage.getItem('Listado_Actual'));
-  return actual;
-}
-
-function resetlistados() {
-  let participantes = []
-  document.getElementById("reset").addEventListener('click', () => {
-    localStorage.setItem('Listado_Actual', JSON.stringify(listados(participantes)));
-    localStorage.removeItem('Listado_Sorteado');
-
-    let Listado_Sorteado = []
-    localStorage.setItem('Listado_Sorteado', JSON.stringify(Listado_Sorteado));
-    const slots = document.querySelectorAll(".slot");
-    slots.forEach((slot) => {
-      const symbols = slot.querySelector(".symbols");
-      symbols.style.transition = "none";
-      symbols.style.top = "0";
-      symbols.offsetHeight;
-      symbols.style.transition = "";
-      //spin();
-    });
-  });
-}
-
-function reset() {
-  const slots = document.querySelectorAll(".slot");
-  slots.forEach((slot) => {
-    const symbols = slot.querySelector(".symbols");
-    symbols.innerHTML =
-      symbols.style.transition = "none";
-    symbols.style.top = "0";
-    symbols.offsetHeight;
-    symbols.style.transition = "";
-    spin();
-  });
-}
-document.getElementById("reset").addEventListener('click', resetlistados);
-
-function animateSymbols(symbols, finalPosition) {
-  let startTimestamp;
-  const duration = 0.1; // Duración de la animación en milisegundos
-
-  function step(timestamp) {
-    if (!startTimestamp) {
-      startTimestamp = timestamp;
-    }
-    const progress = (timestamp - startTimestamp) / duration;
-    if (progress < 1) {
-      const newPosition = finalPosition * progress;
-      symbols.style.top = newPosition + 'px';
-      requestAnimationFrame(step);
-    } else {
-      // La animación ha terminado
-      symbols.style.top = finalPosition + 'px';
-    }
-  }
-
-  requestAnimationFrame(step);
-}
-
-const spinner = {
-  intervalId: null,
-  startSpinning: function () {
-    const hayRegistros = listados();
-
-    if (hayRegistros != null) {
-      const slots = document.querySelectorAll(".slot");
-      this.intervalId = setInterval(() => {
-        slots.forEach((slot, index) => {
-          const symbols = slot.querySelector(".symbols");
-
-          const symbolHeight = symbols.querySelector(".symbol")?.clientHeight;
-          const symbolCount = symbols.childElementCount;
-
-          symbols.innerHTML = "";
-          symbols.appendChild(createSymbolElement("❓"));
-
-          for (let i = 0; i < 50; i++) {
-            slotSymbols[index].forEach((symbol) => {
-              symbols.appendChild(createSymbolElement(symbol));
-            });
-          }
-
-          const totalDistance = symbolCount * symbolHeight;
+//     let exploding = false;
+//     const defaults = {
+//       particleCount: 500,
+//       spread: 80,
+//       angle: 50,
+//     };
+//     const fire = (particleRatio, opts) => {
+//       confetti(
+//         Object.assign({}, defaults, opts, {
+//           particleCount: Math.floor(defaults.particleCount * particleRatio),
+//         })
+//       );
+//     };
+//     symbols.addEventListener("transitionend", () => {
+//       if (exploding) {
+//         return;
+//       }
+//       exploding = true;
+//       symbols.classList.add("animate__rubberBand");
+//       window.setTimeout(() => {
+//         fire(0.25, {
+//           spread: 260,
+//           startVelocity: 55,
+//         });
+//         fire(0.2, {
+//           spread: 260,
+//         });
+//         fire(0.35, {
+//           spread: 260,
+//           decay: 0.91,
+//           scalar: 0.8,
+//         });
+//         fire(0.1, {
+//           spread: 260,
+//           startVelocity: 25,
+//           decay: 0.92,
+//           scalar: 1.2,
+//         });
+//         fire(0.1, {
+//           spread: 2600,
+//           startVelocity: 45,
+//         });
+//         window.setTimeout(() => {
+//           symbols.classList.remove("animate__rubberBand");
+//           //  exploding = false;
+//           Swal.fire('EL GANADOR ES:', id.toString() + ' -- ' + nombre.toString())
+//         }, 300);
+//       }, 300);
+//       //  Swal.fire('SOCIO NRO:', id.toString() + ' -- ' + nombre.toString())
+//     });
+//     symbols.style.transition = "top 1s easy";
+//     symbols.style.top = `${finalPosition}px`;
+//   });
+//   spun = true;
+// }
 
 
-          const randomOffset =
-            -Math.floor(Math.random() * (symbolCount - 1) + 1) * symbolHeight;
-          // symbols.style.transition = "top 0.5s ease-in-out"; // Añade transición suave
-          //symbols.style.transition = "top 0.5s ease-in-out";
 
-          symbols.style.top = `${randomOffset}px`;
+// function listados() {
+//   localStorage.setItem('Listado_Participantes', JSON.stringify(records));
+//   if (records == false) {
+//     // console.log("ola",records)
+//     //document.getElementById("arm").disabled = true;
+//     // alert("POR FAVOR SELECCIONE PRIMERO EL ARCHIVO CSV");
+//     Swal.fire('POR FAVOR SELECCIONE EL ARCHIVO')
+//     return null;
 
-        });
-      }, 1000); // Cambia el valor según la velocidad deseada
+//   } else {
+//     let participantes = JSON.parse(localStorage.getItem('Listado_Participantes'));
+//     return participantes;
+//   }
+// }
 
-    }
-  },
-  stopSpinning: function () {
-    setTimeout(() => {
-      clearInterval(this.intervalId); // Detener el giro después de cierto tiempo
-    }, 0.52);
-    resettombola();
-    console.log(1)
-    stopAtDesiredSymbols();
-  },
+// function listaactual() {
+//   // localStorage.setItem('Listado_Actual', JSON.stringify(listados(participantes)));
+//   let actual = JSON.parse(localStorage.getItem('Listado_Actual'));
+//   return actual;
+// }
 
-};
-;
+// function resetlistados() {
+//   let participantes = []
+//   document.getElementById("reset").addEventListener('click', () => {
+//     localStorage.setItem('Listado_Actual', JSON.stringify(listados(participantes)));
+//     localStorage.removeItem('Listado_Sorteado');
 
-function resettombola() {
-  const slots = document.querySelectorAll(".slot");
-  slots.forEach((slot) => {
-    const symbols = slot.querySelector(".symbols");
-    symbols.style.transition = "none";
-    symbols.style.top = "0";
-    symbols.offsetHeight;
-    symbols.style.transition = "";
+//     localStorage.removeItem('datosTabla');
 
-  });
 
-}
+//     let Listado_Sorteado = []
+//     localStorage.setItem('Listado_Sorteado', JSON.stringify(Listado_Sorteado));
+//     const slots = document.querySelectorAll(".slot");
+//     slots.forEach((slot) => {
+//       const symbols = slot.querySelector(".symbols");
+//       symbols.style.transition = "none";
+//       symbols.style.top = "0";
+//       symbols.offsetHeight;
+//       symbols.style.transition = "";
+//       //spin();
+//     });
+//   });
+// }
 
-document.getElementById('Stop').addEventListener('click', function () {
+// function reset() {
+//   const slots = document.querySelectorAll(".slot");
+//   slots.forEach((slot) => {
+//     const symbols = slot.querySelector(".symbols");
+//     symbols.innerHTML =
+//       symbols.style.transition = "none";
+//     symbols.style.top = "0";
+//     symbols.offsetHeight;
+//     symbols.style.transition = "";
+//     spin();
+//   });
+// }
+// document.getElementById("reset").addEventListener('click', resetlistados);
+
+// function animateSymbols(symbols, finalPosition) {
+//   let startTimestamp;
+//   const duration = 0.1; // Duración de la animación en milisegundos
+
+//   function step(timestamp) {
+//     if (!startTimestamp) {
+//       startTimestamp = timestamp;
+//     }
+//     const progress = (timestamp - startTimestamp) / duration;
+//     if (progress < 1) {
+//       const newPosition = finalPosition * progress;
+//       symbols.style.top = newPosition + 'px';
+//       requestAnimationFrame(step);
+//     } else {
+//       // La animación ha terminado
+//       symbols.style.top = finalPosition + 'px';
+//     }
+//   }
+
+//   requestAnimationFrame(step);
+// }
+
+// const spinner = {
+//   intervalId: null,
+//   startSpinning: function () {
+//     const hayRegistros = listados();
+
+//     if (hayRegistros != null) {
+//       const slots = document.querySelectorAll(".slot");
+//       this.intervalId = setInterval(() => {
+//         slots.forEach((slot, index) => {
+//           const symbols = slot.querySelector(".symbols");
+
+//           const symbolHeight = symbols.querySelector(".symbol")?.clientHeight;
+//           const symbolCount = symbols.childElementCount;
+
+//           symbols.innerHTML = "";
+//           symbols.appendChild(createSymbolElement("❓"));
+
+//           for (let i = 0; i < 50; i++) {
+//             slotSymbols[index].forEach((symbol) => {
+//               symbols.appendChild(createSymbolElement(symbol));
+//             });
+//           }
+
+//           const totalDistance = symbolCount * symbolHeight;
+
+
+//           const randomOffset =
+//             -Math.floor(Math.random() * (symbolCount - 1) + 1) * symbolHeight;
+//           // symbols.style.transition = "top 0.5s ease-in-out"; // Añade transición suave
+//           //symbols.style.transition = "top 0.5s ease-in-out";
+
+//           symbols.style.top = `${randomOffset}px`;
+
+//         });
+//       }, 200); // Cambia el valor según la velocidad deseada
+
+//     }
+//   },
+//   stopSpinning: function () {
+//     setTimeout(() => {
+//       clearInterval(this.intervalId); // Detener el giro después de cierto tiempo
+//     }, 0.52);
+//     resettombola();
+//     console.log(1)
+//     stopAtDesiredSymbols();
+//   },
+
+// };
+
+
+// function resettombola() {
+//   const slots = document.querySelectorAll(".slot");
+//   slots.forEach((slot) => {
+//     const symbols = slot.querySelector(".symbols");
+//     symbols.style.transition = "none";
+//     symbols.style.top = "0";
+//     symbols.offsetHeight;
+//     symbols.style.transition = "";
+
+//   });
+
+// }
+
+document.getElementById('Parar').addEventListener('click', function () {
   spinner.stopSpinning();
 });
-let currentDatosIndex = 0; // Variable para realizar un seguimiento del índice actual en listaDatos
-function stopAtDesiredSymbols() {
 
-  const hayRegistros = listados();
+document.getElementById('Sortear').addEventListener('click', function () {
+  spinner.startSpinning();
+});
+// Variable para realizar un seguimiento del índice actual en listaDatos
+// function stopAtDesiredSymbols() {
 
-  if (hayRegistros != null) {
-    let valoractual = listaactual();
+//   const hayRegistros = listados();
 
-    const values = selectRecordBasedOnProbability(valoractual);
+//   if (hayRegistros != null) {
+//     let valoractual = listaactual();
 
-    const Listado_Actual = valoractual.filter((actual) => actual.ID !== values.ID);
-    valoractual = Listado_Actual;
-    localStorage.setItem('Listado_Actual', JSON.stringify(valoractual));
+//     const values = selectRecordBasedOnProbability(valoractual);
 
-
-    let Listado_Sorteado = JSON.parse(localStorage.getItem('Listado_Sorteado'));
-
-    Listado_Sorteado.push(values);
-
-    // Store the updated Listado_Sorteado back in localStorage
-    localStorage.setItem('Listado_Sorteado', JSON.stringify(Listado_Sorteado));
-
-    let ganadores = Listado_Sorteado;
-
-    console.log(Listado_Actual);
-    console.log(ganadores);
+//     const Listado_Actual = valoractual.filter((actual) => actual.ID !== values.ID);
+//     valoractual = Listado_Actual;
+//     localStorage.setItem('Listado_Actual', JSON.stringify(valoractual));
 
 
-    var str = values.ID.toString();
-    let res = [];
+//     let Listado_Sorteado = JSON.parse(localStorage.getItem('Listado_Sorteado'));
 
-    for (var i = 0, len = str.length; i < len; i += 1) {
-      res.push(str.charAt(i));
-    }
-    console.log("[" + res + "]");
+//     Listado_Sorteado.push(values);
 
+//     // Store the updated Listado_Sorteado back in localStorage
+//     localStorage.setItem('Listado_Sorteado', JSON.stringify(Listado_Sorteado));
 
-    const formattedValue = padLeft(values.ID, 6, '0');
-    console.log(formattedValue)
-    //  console.log("[" + symb + "]");
-    stopAtSymbols(formattedValue, values.ID, values.NAME);
+//     let ganadores = Listado_Sorteado;
 
-    document.getElementById("arm").removeAttribute("disabled");
-    tableganador(values)
-
-  }
-
-}
-
-let paginaActual = 1;
-const filasPorPagina = 10;
-
-function tableganador(values) {
-  const tableBody = document.querySelector("#tablaganador");
-  // Obtener el dato actual de listaDatos según el índice actual
-  const currentDato = listaDatos[currentDatosIndex];
-
-  // Concatenar la información del ganador con los datos del dato actual
-  const ganadorConDatos = {
-    ...values,
-    ...currentDato
-  };
+//     console.log(Listado_Actual);
+//     console.log(ganadores);
 
 
-  // Create a new row for the winner
-  const newRow = document.createElement("tr");
+//     var str = values.ID.toString();
+//     let res = [];
 
-  // Add columns for each piece of data (adjust the properties accordingly)
-  const idColumn = document.createElement("td");
-  idColumn.textContent = ganadorConDatos.ID;
-  newRow.appendChild(idColumn);
+//     for (var i = 0, len = str.length; i < len; i += 1) {
+//       res.push(str.charAt(i));
+//     }
+//     console.log("[" + res + "]");
 
-  const nameColumn = document.createElement("td");
-  nameColumn.textContent = ganadorConDatos.NAME;
-  newRow.appendChild(nameColumn);
 
-  const PremioColumn = document.createElement("td");
-  PremioColumn.textContent = ganadorConDatos["Descripción"];
-  newRow.appendChild(PremioColumn);
-  if (paginaActual * filasPorPagina >= tableBody.children.length) {
-    setTimeout(function () {
-      const firstRow = tableBody.firstChild; // Obtener el primer elemento actual
-      if (firstRow) {
-        tableBody.insertBefore(newRow, firstRow); // Insertar antes del primer elemento actual
-      } else {
-        tableBody.appendChild(newRow); // Si no hay elementos, simplemente añadir
-      }
-      currentDatosIndex = (currentDatosIndex + 1) % listaDatos.length;
-    }, 3000);
-  }
-}
+//     const formattedValue = padLeft(values.ID, 6, '0');
+//     console.log(formattedValue)
+//     //  console.log("[" + symb + "]");
+//     stopAtSymbols(formattedValue, values.ID, values.NAME);
 
-function cargarTabla(){
-  const tableBody = document.querySelector("#tablaganador");
-  tableBody.innerHTML = ''; // Limpiar la tabla antes de cargar los datos
+//     //document.getElementById("arm").removeAttribute("disabled");
+//     tableganador(values)
 
-  // Recorrer la lista de datos y agregar cada fila a la tabla
-  listaDatos.forEach((dato) => {
-    const newRow = document.createElement("tr");
+//   }
 
-    const idColumn = document.createElement("td");
-    idColumn.textContent = dato.ID;
-    newRow.appendChild(idColumn);
+// }
 
-    const nameColumn = document.createElement("td");
-    nameColumn.textContent = dato.NAME;
-    newRow.appendChild(nameColumn);
+// let paginaActual = 1;
+// const filasPorPagina = 10;
+// let datosTabla = JSON.parse(localStorage.getItem("datosTabla")) || []; // Inicializar datosTabla con los datos guardados
 
-    const PremioColumn = document.createElement("td");
-    PremioColumn.textContent = dato["Descripción"];
-    newRow.appendChild(PremioColumn);
+// function tableganador(values) {
+//   const tableBody = document.querySelector("#tablaganador");
+//   // Obtener el dato actual de listaDatos según el índice actual
+//   const currentDato = listaDatos[currentDatosIndex];
 
-    tableBody.appendChild(newRow);
-  });
-}
+//   // Concatenar la información del ganador con los datos del dato actual
+//   const ganadorConDatos = {
+//     ...values,
+//     ...currentDato
+//   };
+
+
+//   // Create a new row for the winner
+//   const newRow = document.createElement("tr");
+
+//   // Add columns for each piece of data (adjust the properties accordingly)
+//   const idColumn = document.createElement("td");
+//   idColumn.textContent = ganadorConDatos.ID;
+//   newRow.appendChild(idColumn);
+
+//   const nameColumn = document.createElement("td");
+//   nameColumn.textContent = ganadorConDatos.NAME;
+//   newRow.appendChild(nameColumn);
+
+//   const PremioColumn = document.createElement("td");
+//   PremioColumn.textContent = ganadorConDatos["Descripción"];
+//   newRow.appendChild(PremioColumn);
+//   if (paginaActual * filasPorPagina >= tableBody.children.length) {
+//     setTimeout(function () {
+//       const firstRow = tableBody.firstChild; // Obtener el primer elemento actual
+//       if (firstRow) {
+//         tableBody.insertBefore(newRow, firstRow); // Insertar antes del primer elemento actual
+//       } else {
+//         tableBody.appendChild(newRow); // Si no hay elementos, simplemente añadir
+//       }
+//       currentDatosIndex = (currentDatosIndex + 1) % listaDatos.length;
+//     }, 3000);
+//   }
+//   datosTabla.push({
+//     ID: ganadorConDatos.ID,
+//     NAME: ganadorConDatos.NAME,
+//     Descripción: ganadorConDatos["Descripción"]
+//   })
+//   localStorage.setItem("datosTabla", JSON.stringify(datosTabla));
+
+//   console.log(localStorage.getItem("datosTabla"));
+// }
+
+
+// function cargarTabla() {
+//   const tableBody = document.querySelector("#tablaganador");
+//   tableBody.innerHTML = ''; // Limpiar el contenido actual de la tabla
+
+//   // Obtener los datos guardados en localStorage
+//   const datosGuardados = JSON.parse(localStorage.getItem("datosTabla"));
+//   if (datosGuardados) {
+//     datosGuardados.forEach((dato) => {
+//       // Crear una nueva fila para cada dato guardado
+//       const newRow = document.createElement("tr");
+
+//       // Crear celdas para cada propiedad de los datos
+//       const idColumn = document.createElement("td");
+//       idColumn.textContent = dato.ID;
+//       newRow.appendChild(idColumn);
+
+//       const nameColumn = document.createElement("td");
+//       nameColumn.textContent = dato.NAME;
+//       newRow.appendChild(nameColumn);
+
+//       const descripcionColumn = document.createElement("td");
+//       descripcionColumn.textContent = dato.Descripción;
+//       newRow.appendChild(descripcionColumn);
+
+//       // Agregar la nueva fila a la tabla
+//       tableBody.appendChild(newRow);
+//     });
+//   }
+// }
+
+// Llamar a la función para cargar la tabla al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+  cargarTabla();
+});
 
 function mostrarPagina(pagina) {
   const tableBody = document.querySelector("#tablaganador");
@@ -449,18 +480,18 @@ function paginaSiguiente() {
   }
 }
 
-document.getElementById("paginasig").addEventListener("click",paginaSiguiente)
+document.getElementById("paginasig").addEventListener("click", paginaSiguiente)
 
-document.getElementById("paginaant").addEventListener("click",paginaAnterior)
+document.getElementById("paginaant").addEventListener("click", paginaAnterior)
 
-function padLeft(value, length, padChar) {
+/*function padLeft(value, length, padChar) {
   const strValue = value.toString();
   if (strValue.length >= length) {
     return strValue;
   }
   const padding = padChar.repeat(length - strValue.length);
   return padding + strValue;
-}
+}*/
 
 
 
@@ -519,10 +550,10 @@ function ListadoSorteados() {
   }
 }
 
-document.getElementById('Sorteados').addEventListener('click', ListadoSorteados);
+//document.getElementById('Sorteados').addEventListener('click', ListadoSorteados);
 
 
-function ocultarCSV () {
+function ocultarCSV() {
   document.getElementById('csvFileInput').addEventListener('change', (event) => {
     var elemento = document.getElementById('csvFileInput');
     elemento.style.display = 'none';
@@ -563,7 +594,7 @@ function parseCSV(csvText) {
   return parsedRecords;
 }
 
-function selectRecordBasedOnProbability(records) {
+/*function selectRecordBasedOnProbability(records) {
   const totalCouponCount = records.reduce((total, record) => total + record.COUPONS, 0);
   const randomValue = Math.random() * totalCouponCount;
   let cumulativeProbability = 0;
@@ -578,83 +609,40 @@ function selectRecordBasedOnProbability(records) {
   // If no record is selected (unlikely but possible due to rounding errors), return the last record
   return records[records.length - 1];
 }
-
-$(document).ready(function () {
-  $('#arm').click(function (e) {
-    var arm = $(this).addClass('clicked');
-    //    delay = setTimeout(function () { arm.removeClass('clicked') }, 500);
-    $(this).attr("disabled", true);
-    e.preventDefault();
-    //stopAtDesiredSymbols();
-    //spin();
-    //stopAtDesiredSymbols();
-    spinner.startSpinning();
-
-    // Habilitar el botón nuevamente después de 2 segundos
-    setTimeout(function () {
-      arm.removeClass('clicked');
-      $('#arm').removeAttr("disabled");
-    }, 800); // 4 segundos
-  });
-});
+/*/
 
 //<--------------Archivo de Premios-----------------//
-/*Papa.parse('premios.csv', {
-  download: true,
-  header: true,
-  complete: function(results) {
-      var tabla = document.getElementById('tablaDatos');
-      var datos = results.data;
-
-      // Encabezados de la tabla
-      var encabezados = Object.keys(datos[0]);
-      var encabezadoRow = tabla.insertRow();
-      encabezados.forEach(function(encabezado) {
-          var th = document.createElement('th');
-          th.textContent = encabezado;
-          encabezadoRow.appendChild(th);
-      });
-
-      // Datos de la tabla
-      datos.forEach(function(fila) {
-          var tr = tabla.insertRow();
-          encabezados.forEach(function(encabezado) {
-              var td = tr.insertCell();
-              td.textContent = fila[encabezado];
-          });
-      });
-  }
-});*/
 
 
-let listaDatos = [];
+
+/*let listaDatos = [];
 if (localStorage.getItem('listaDatos')) {
   listaDatos = JSON.parse(localStorage.getItem('listaDatos'));
 } else {
-parsePremios()
-}
-function parsePremios() {
+  parsePremios()
+}*/
 
-  Papa.parse('premios.csv', {
-    download: true,
-    header: true,
-    complete: function (results) {
-      var datos = results.data;
+// function parsePremios() {
 
-      // Lista para almacenar los datos
+//   Papa.parse('premios.csv', {
+//     download: true,
+//     header: true,
+//     complete: function (results) {
+//       var datos = results.data;
+
+//       // Lista para almacenar los datos
 
 
-      // Agregar datos a la lista
-      datos.forEach(function (fila) {
-        var objetoFila = {};
-        for (var key in fila) {
-          objetoFila[key] = fila[key];
-        }
-        listaDatos.push(objetoFila);
-      });
-      localStorage.setItem('listaDatos', JSON.stringify(listaDatos));
-      cargarTabla();
-    }
-  });
+//       // Agregar datos a la lista
+//       datos.forEach(function (fila) {
+//         var objetoFila = {};
+//         for (var key in fila) {
+//           objetoFila[key] = fila[key];
+//         }
+//         listaDatos.push(objetoFila);
+//       });
+//       localStorage.setItem('listaDatos', JSON.stringify(listaDatos));
+//     }
+//   });
 
-}
+// }

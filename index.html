@@ -31,11 +31,13 @@
 <body class="custom-background"> 
   <header>
     <div class="sidebar">
-      <img src="images/COOPSLogo.png" alt="Pequeña imagen" id = "logo">
+      <img src="images/COOPSlogo.png" alt="Pequeña imagen" id = "logo">
+      
     </div>
+    <button class="btn btn-danger m-2 px-5" id="reset" style="position: absolute; top:10px; right: 10px;">Reiniciar</button>
   </header>
 
-  <h6 id = "Titulo"> <br> SORTEO ESTIMULO DE FIN DE ANHO <br> </h6>
+  <h6 id = "Titulo"> <br> SORTEO ESTIMULO DE FIN DE AÑO <br> </h6>
 
   <img src="images/regalos.png" alt="izquierda" id = "izquierda">
   <img src="images/regalos.png" alt="izquierda" id = "derecha">
@@ -44,9 +46,9 @@
     <div class="row">
 
       <div class="container3">
-        <div class="col-xl-2 custom-shoulder m-2" id="shoulder">
+        <!-- <div class="col-xl-2 custom-shoulder m-2" id="shoulder">
           <div id="arm"></div>
-        </div>
+        </div> -->
         <div class="col-sm-8 col-xl-6 slotcontainer" style="background-color: #760209; ">
           <div class="slot">
             <div class="symbols" id="slot1Symbols"></div>
@@ -71,20 +73,22 @@
           <button class="btn btn-danger p-md-5 rounded-circle btn-lg custom-btn" id="Stop"
             style="border : 5px solid #760209">STOP</button>
         </div> -->
+<!--         
         <div class="col-sm-2 col-xl-1 oliwi">
           <button class="btn-class-name" id ="Stop">
             <span class="back"></span>
             <span class="front"></span>
           </button>
-        </div>
-      </div>
+        </div> -->
+      </div> 
 
       <div class="container2">
         <!--<button onclick="spin()">Spin</button>-->
         <div class="btn-group">
-          <button class="btn btn-success m-2 px-5 " data-toggle="modal" data-target="#miModal"
-            id="Sorteados">Sorteados</button>
-          <button class="btn btn-danger m-2 px-5" id="reset">Reset</button>
+          <!-- <button class="btn btn-success m-2 px-5 " data-toggle="modal" data-target="#miModal"
+            id="Sorteados">Sorteados</button> -->
+          <button class="btn btn-success m-2 px-5" id="Sortear">Sortear</button>
+          <button class="btn btn-danger m-2 px-5" id="Parar">Parar</button>
           <!--<button id="resetwinners">Reiniciar Ganadores</button>-->
         </div>
         <input class="form-control" type="file" id="csvFileInput" accept=".csv" style="width: 700px; margin-top: 10px;">
@@ -140,7 +144,8 @@
       </div>
     </div>
   </div>
-  <footer>
+  <footer style="background-color: green;
+  width: 100%; height: 80px; position: fixed; bottom: 0;">
 
   </footer>
   <!-- <button class="canvas-confetti-btn animate__animated">-->
