@@ -1,4 +1,5 @@
 import {listados, listaactual, selectRecordBasedOnProbability, padLeft} from './listados.js';
+
 import { tableganador } from './tabla.js';
 
 
@@ -18,7 +19,7 @@ const slotSymbols = [
   
     return div;
   }
-  
+
   export function spin() {
   
     const slots = document.querySelectorAll(".slot");
@@ -75,9 +76,9 @@ const slotSymbols = [
   
   
   export function stopAtSymbols(desiredSymbols, id, nombre) {
-    if (spun) {
+    /*if (spun) {
       reset();
-    }
+    }*/
     const slots = document.querySelectorAll(".slot");
     let completedSlots = 0;
   
@@ -289,6 +290,8 @@ function resettombola() {
       //document.getElementById("arm").removeAttribute("disabled");
       tableganador(values)
   
+    }else{
+      console.log("NULASO")
     }
   
   }

@@ -1,3 +1,4 @@
+import './spin.js';
 export function listados() {
     localStorage.setItem('Listado_Participantes', JSON.stringify(records));
     if (records == false) {
@@ -39,8 +40,8 @@ export function listados() {
         symbols.style.transition = "";
         //spin();
       });
-    });
-  }
+      });
+    }
   export function padLeft(value, length, padChar) {
     const strValue = value.toString();
     if (strValue.length >= length) {
