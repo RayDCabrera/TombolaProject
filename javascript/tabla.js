@@ -1,7 +1,7 @@
 import {listaDatos} from "./premios.js";
+import './listados.js';
 
-let paginaActual = 1;
-const filasPorPagina = 10;
+
 let datosTabla = JSON.parse(localStorage.getItem("datosTabla")) || []; // Inicializar datosTabla con los datos guardados
 
 let currentDatosIndex = 0; 
@@ -33,7 +33,6 @@ export function tableganador(values) {
   const PremioColumn = document.createElement("td");
   PremioColumn.textContent = ganadorConDatos["Descripción"];
   newRow.appendChild(PremioColumn);
-  if (paginaActual * filasPorPagina >= tableBody.children.length) {
     setTimeout(function () {
       const firstRow = tableBody.firstChild; // Obtener el primer elemento actual
       if (firstRow) {
@@ -43,7 +42,6 @@ export function tableganador(values) {
       }
       currentDatosIndex = (currentDatosIndex + 1) % listaDatos.length;
     }, 3000);
-  }
   datosTabla.push({
     ID: ganadorConDatos.ID,
     NAME: ganadorConDatos.NAME,
@@ -84,33 +82,6 @@ export function cargarTabla() {
     });
   }
 }
-export function mostrarPagina(pagina) {
-    const tableBody = document.querySelector("#tablaganador");
-    const filas = tableBody.children;
-    const inicio = (pagina - 1) * filasPorPagina;
-    const fin = pagina * filasPorPagina;
-  
-    for (let i = 0; i < filas.length; i++) {
-      filas[i].style.display = (i >= inicio && i < fin) ? 'table-row' : 'none';
-    }
-  }
-  
-  // Funciones para cambiar de página
-  export function paginaAnterior() {
-    if (paginaActual > 1) {
-      paginaActual--;
-      mostrarPagina(paginaActual);
-    }
-  }
-  
-  export function paginaSiguiente() {
-    const tableBody = document.querySelector("#tablaganador");
-    const filas = tableBody.children;
-    const totalPaginas = Math.ceil(filas.length / filasPorPagina);
-  
-    if (paginaActual < totalPaginas) {
-      paginaActual++;
-      mostrarPagina(paginaActual);
-    }
-  }
+
+
   

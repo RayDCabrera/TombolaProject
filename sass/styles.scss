@@ -114,6 +114,7 @@ header {
     
 	padding : 0px;
 	padding-bottom: 0px;
+	height: 100px;
 }
 
 //----------------------------TABLA-------------------------------//
@@ -124,6 +125,7 @@ header {
     //overflow-y: auto; /* Enable vertical scrolling when content overflows */
 	box-sizing: border-box;
 	margin-left: 200px;
+
 }
 
 #premiopurete{
@@ -131,14 +133,18 @@ header {
 	text-align: center;
 	box-sizing: border-box;
 	align-items: center;
+
 }
 
 #tablaDatos{
-	position: relative;
+	//position: relative;
 	width: 50%;
 	align-items: center;
-	text-align: center;
-    left: 300px; /* Adjust based on your design */
+	text-align: center;  
+	margin: 0 auto; /* Esto centrará la tabla horizontalmente */
+	border-collapse: collapse;
+	overflow-y: auto;
+	max-height: 50px;
 }
 
 th{

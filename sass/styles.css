@@ -110,6 +110,7 @@ header {
   box-sizing: border-box;
   padding: 0px;
   padding-bottom: 0px;
+  height: 100px;
 }
 
 .container1 {
@@ -127,11 +128,13 @@ header {
 }
 
 #tablaDatos {
-  position: relative;
   width: 50%;
   align-items: center;
   text-align: center;
-  left: 300px; /* Adjust based on your design */
+  margin: 0 auto; /* Esto centrará la tabla horizontalmente */
+  border-collapse: collapse;
+  overflow-y: auto;
+  max-height: 50px;
 }
 
 th {
