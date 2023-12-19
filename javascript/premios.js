@@ -1,3 +1,5 @@
+import  {listadoGanadores} from './listados.js';
+
 export let listaDatos = [];
 if (localStorage.getItem('listaDatos')) {
   listaDatos = JSON.parse(localStorage.getItem('listaDatos'));
@@ -23,7 +25,6 @@ export function parsePremios() {
         }
         listaDatos.push(objetoFila);
       });
-      localStorage.setItem('listaDatos', JSON.stringify(listaDatos));
     }
   });
 

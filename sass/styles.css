@@ -12,7 +12,7 @@ body.custom-background {
 }
 
 header {
-  position: fixed;
+  position: relative;
   height: 200px;
   width: 100%;
   background-color: rgb(255, 255, 255);
@@ -20,31 +20,34 @@ header {
   justify-content: center;
 }
 
-#Titulo {
+footer {
   position: fixed;
+  bottom: 0;
+  width: 100%;
+  margin-top: 800px;
+}
+
+#Titulo {
+  position: relative;
   font-size: 80px;
   font-weight: bold;
   text-align: center;
   align-items: center;
   color: green;
-  left: 200px;
-  margin-top: 100px;
 }
 
 #izquierda {
   float: left;
   margin-right: 10px;
-  width: 20%;
+  width: 10%;
   height: 300px;
-  margin-top: 410px;
 }
 
 #derecha {
   float: right;
   margin-right: 10px;
-  width: 20%;
+  width: 10%;
   height: 300px;
-  margin-top: 410px;
 }
 
 .sidebar {
@@ -69,28 +72,25 @@ header {
 }
 
 .container {
-  position: fixed;
-  left: 300px;
+  position: relative;
   display: table;
   align-items: center;
   justify-content: center;
   height: 70vh;
-  padding: 5px;
   box-sizing: border-box;
   border-radius: 12px 12px 12px 12px;
-  overflow: auto;
   width: 100%;
-  padding-top: 30px;
-  margin-top: 300px;
+  overflow-y: scroll;
 }
 
 .container3 {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: inherit;
+  position: relative;
   box-sizing: border-box;
-  margin-bottom: 0;
+  width: 300px; /* El ancho total incluirá el relleno y el borde */
+  margin-top: 0;
 }
 
 .container2 {
@@ -100,6 +100,12 @@ header {
   justify-content: center;
   box-sizing: border-box;
   margin-bottom: 10px;
+}
+
+.container1 {
+  width: 900px !important;
+  background-color: #000000;
+  box-sizing: border-box;
 }
 
 .container4 {
@@ -113,43 +119,42 @@ header {
   height: 100px;
 }
 
-.container1 {
-  width: 900px !important;
-  background-color: #000000;
-  box-sizing: border-box;
-  margin-left: 200px;
-}
-
 #premiopurete {
-  width: contain;
+  width: 70%;
   text-align: center;
   box-sizing: border-box;
   align-items: center;
+  max-height: 200px;
+  margin: 0 auto;
 }
 
 #tablaDatos {
-  width: 50%;
+  width: 100%;
   align-items: center;
   text-align: center;
   margin: 0 auto; /* Esto centrará la tabla horizontalmente */
-  border-collapse: collapse;
-  overflow-y: auto;
-  max-height: 50px;
+  max-height: 200px;
 }
 
-th {
+#tablaDatos tbody tr.even {
+  background-color: #f2f2f2; /* or any other color you prefer */
+}
+
+.premios th {
   text-transform: uppercase;
   background: green;
   background-size: contain;
   text-align: center;
   color: white !important;
+  position: block;
 }
 
-th, td {
+.premios th, td {
   padding: 1px 10px;
   text-align: center;
   text-overflow: ellipsis;
   overflow: hidden;
+  display: table-cell;
 }
 
 tr:nth-child(odd) {
@@ -230,7 +235,6 @@ tr:nth-child(odd) {
   position: relative;
   justify-content: center;
   align-items: center;
-  margin-bottom: 0px;
   margin-left: 0px;
   border-style: groove;
   border-color: #466009;

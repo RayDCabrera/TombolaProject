@@ -25,31 +25,32 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+
+  <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
 
 </head>
 
-<body class="custom-background"> 
+<body class="custom-background">
   <header>
     <div class="sidebar">
-      <img src="images/COOPSlogo.png" alt="Pequeña imagen" id = "logo">
-      
+      <img src="images/COOPSlogo.png" alt="Pequeña imagen" id="logo">
+
     </div>
-    <button class="btn btn-danger m-2 px-5" id="reset" style="position: absolute; top:10px; right: 10px;">Reiniciar</button>
+    <button class="btn btn-danger m-2 px-5" id="reset"
+      style="position: absolute; top:10px; right: 10px;">Reiniciar</button>
   </header>
-
-  <h6 id = "Titulo"> <br> SORTEO ESTIMULO DE FIN DE AÑO <br> </h6>
-
-  <img src="images/regalos.png" alt="izquierda" id = "izquierda">
-  <img src="images/regalos.png" alt="izquierda" id = "derecha">
+  <div>
+    <h6 id="Titulo"> <br> SORTEO ESTIMULO DE FIN DE AÑO <br> </h6>
+  </div>
+  <img src="images/regalos.png" alt="izquierda" id="izquierda">
+  <img src="images/regalos.png" alt="derecha" id="derecha">
   <div class="container">
 
     <div class="row">
 
-      <div class="container3">
-        <!-- <div class="col-xl-2 custom-shoulder m-2" id="shoulder">
-          <div id="arm"></div>
-        </div> -->
-        <div class="col-sm-8 col-xl-6 slotcontainer" style="background-color: #760209; ">
+      <div class="container3" >
+        <div class="col-sm-6 col-xl-6 slotcontainer" style="background-color: #760209; ">
           <div class="slot">
             <div class="symbols" id="slot1Symbols"></div>
           </div>
@@ -69,18 +70,7 @@
             <div class="symbols" id="slot6Symbols"></div>
           </div>
         </div>
-        <!-- <div class="col-sm-2 col-xl-1 oliwi">
-          <button class="btn btn-danger p-md-5 rounded-circle btn-lg custom-btn" id="Stop"
-            style="border : 5px solid #760209">STOP</button>
-        </div> -->
-<!--         
-        <div class="col-sm-2 col-xl-1 oliwi">
-          <button class="btn-class-name" id ="Stop">
-            <span class="back"></span>
-            <span class="front"></span>
-          </button>
-        </div> -->
-      </div> 
+      </div>
 
       <div class="container2">
         <!--<button onclick="spin()">Spin</button>-->
@@ -98,23 +88,25 @@
 
     </div>
     <!-- <div class = "container4"> -->
-      <div class=" col col-xl-12 premios" id="premiopurete">
-        <table border="0" id="tablaDatos">
-          <thead>
-            <tr>
-              <th scope="col" >Nro Socio</th>
-              <th scope="col">Ganador</th>
-              <th scope="col" style="width: min-content;">Premio</th>
-            </tr>
-          </thead>
-          <tbody id="tablaganador">
-            <td class="nro"></td>
+    <div class=" col col-xl-12 premios" id="premiopurete">
+      <table border="0" id="tablaDatos">
+        <thead>
+          <tr>
+            <th rowspan="1" colspan="1" >Nro Socio</th>
+            <th rowspan="1" colspan="1">Ganador</th>
+            <th rowspan="1" colspan="1">Premio</th>
+          </tr>
+        </thead>
+        <tbody id="tablaganador">
+          <tr> 
+            <td class="nro"></td> 
             <td class="premio"></td>
             <td class="ganador"></td>
-          </tbody>
-        </table>
+          </tr>
+        </tbody>
+      </table>
       <!-- </div> -->
-  </div>
+    </div>
     <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
