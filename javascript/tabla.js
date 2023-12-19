@@ -57,7 +57,7 @@ export function tableganador(values) {
     currentDatosIndex = (currentDatosIndex + 1) % listaDatos.length;
   
   
-  localStorage.setItem("datosActual", JSON.stringify(datosTabla));
+  localStorage.setItem("datosTabla", JSON.stringify(datosTabla));
   const datosGuardados = localStorage.getItem("datosTabla");
 
   console.log(datosGuardados);

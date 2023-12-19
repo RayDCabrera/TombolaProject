@@ -20,7 +20,7 @@ export function listaactual() {
 }
 
 export function listadoGanadores() {
-//  localStorage.setItem('listaDatos', JSON.stringify(listaDatos));
+  localStorage.setItem('listaDatos', JSON.stringify(listaDatos));
   let actualpremio = JSON.parse(localStorage.getItem('listaDatos'));
   return actualpremio;
 }
