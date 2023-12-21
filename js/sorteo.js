@@ -1,3 +1,182 @@
+const slotSymbols = [
+    ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
+    ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
+    ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
+    ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
+    ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
+    ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+  ];
+
+function createSymbolElement(symbol) {
+    const div = document.createElement("div");
+    div.classList.add("symbol");
+    div.textContent = symbol;
+
+    return div;
+}
+
+
+function spin() {
+
+    const slots = document.querySelectorAll(".slot");
+
+    slots.forEach((slot, index) => {
+        const symbols = slot.querySelector(".symbols");
+        symbols.innerHTML = "";
+        symbols.appendChild(createSymbolElement("❓"));
+    });
+}
+spin()
+
+function stopAtSymbols(desiredSymbols, id, nombre) {
+    const slots = document.querySelectorAll(".slot");
+    let completedSlots = 0;
+  
+    slots.forEach((slot, index) => {
+      const symbols = slot.querySelector(".symbols");
+      const symbolHeight = symbols.querySelector(".symbol")?.clientHeight;
+      const symbolCount = symbols.childElementCount;
+  
+      // Iniciar la animación suave
+      const symbol = symbols.querySelector(".symbol");
+  
+  
+      const stopSymbolIndex = slotSymbols[index].indexOf(desiredSymbols[index]);
+  
+  
+      // Calculate the number of symbols to show before stopping
+      const symbolsToShow = symbolCount * 2 + stopSymbolIndex;
+      const finalPosition = stopSymbolIndex * symbolHeight * -1;
+      symbols.innerHTML = "";
+      animateSymbols(symbols, finalPosition);
+      for (let i = 0; i < symbolsToShow; i++) {
+        symbols.appendChild(
+          createSymbolElement(
+            slotSymbols[index][i % symbolCount]
+          )
+        );
+      }
+      symbols.style.transition = "top 1s easy";
+      symbols.style.top = `${finalPosition}px`;
+    })
+}
+
+function animateSymbols(symbols, finalPosition) {
+    let startTimestamp;
+    const duration = 0.1; // Duración de la animación en milisegundos
+  
+    function step(timestamp) {
+      if (!startTimestamp) {
+        startTimestamp = timestamp;
+      }
+      const progress = (timestamp - startTimestamp) / duration;
+      if (progress < 1) {
+        const newPosition = finalPosition * progress;
+        symbols.style.top = newPosition + 'px';
+        requestAnimationFrame(step);
+      } else {
+        // La animación ha terminado
+        symbols.style.top = finalPosition + 'px';
+      }
+    }
+  
+    requestAnimationFrame(step);
+}
+
+const spinner = {
+    intervalId: null,
+    startSpinning: function () {
+        const slots = document.querySelectorAll(".slot");
+        this.intervalId = setInterval(() => {
+          slots.forEach((slot, index) => {
+            const symbols = slot.querySelector(".symbols");
+  
+            const symbolHeight = symbols.querySelector(".symbol")?.clientHeight;
+            const symbolCount = symbols.childElementCount;
+  
+            symbols.innerHTML = "";
+            symbols.appendChild(createSymbolElement("❓"));
+  
+            for (let i = 0; i < 50; i++) {
+              slotSymbols[index].forEach((symbol) => {
+                symbols.appendChild(createSymbolElement(symbol));
+              });
+            }
+  
+            const totalDistance = symbolCount * symbolHeight;
+  
+  
+            const randomOffset =
+              -Math.floor(Math.random() * (symbolCount - 1) + 1) * symbolHeight;
+            // symbols.style.transition = "top 0.5s ease-in-out"; // Añade transición suave
+            //symbols.style.transition = "top 0.5s ease-in-out";
+  
+            symbols.style.top = `${randomOffset}px`;
+  
+          });
+        }, 200); // Cambia el valor según la velocidad deseada
+  
+    },
+    stopSpinning: function (registro_seleccionado) {
+      setTimeout(() => {
+        clearInterval(this.intervalId); // Detener el giro después de cierto tiempo
+      }, 0.52);
+      resettombola();
+      console.log(1)
+      stopAtDesiredSymbols(registro_seleccionado);
+    },
+  
+};
+
+function resettombola() {
+    const slots = document.querySelectorAll(".slot");
+    slots.forEach((slot) => {
+      const symbols = slot.querySelector(".symbols");
+      symbols.style.transition = "none";
+      symbols.style.top = "0";
+      symbols.offsetHeight;
+      symbols.style.transition = "";
+  
+    });
+  
+  }
+
+
+function stopAtDesiredSymbols(registro_seleccionado) {
+  
+
+       /*localStorage.setItem('lista_actual', JSON.stringify(lista_actual));
+       console.log(values);*/
+    const values = registro_seleccionado
+        console.log(values);
+      var str = values.matricula.toString();
+      let res = [];
+  
+      for (var i = 0, len = str.length; i < len; i += 1) {
+        res.push(str.charAt(i));
+      }
+      console.log("[" + res + "]");
+  
+  
+      const formattedValue = padLeft(values.matricula, 6, '0');
+      console.log(formattedValue)
+      //  console.log("[" + symb + "]");
+      stopAtSymbols(formattedValue, values.matricula, values.NAME);
+  
+      //document.getElementById("arm").removeAttribute("disabled");
+     // tableganador(values)
+  }
+
+  function padLeft(value, length, padChar) {
+    const strValue = value.toString();
+    if (strValue.length >= length) {
+      return strValue;
+    }
+    const padding = padChar.repeat(length - strValue.length);
+    return padding + strValue;
+  }
+  
+  
 const TABLA_SORTEADOS = new DataTable('#tablaSorteados', {
     "lengthMenu": [5, 10, 15, 100],
     "language": {
@@ -181,10 +360,12 @@ let selectRecordBasedOnProbability = (records) => {
 }
 
 let iniciarAnimacion = () => {
+    spinner.startSpinning();
     modoElegirSorteado();
 }
 
 let seleccionarRegistroDelListado = () => {
+    
     let lista_sorteados = JSON.parse(localStorage.getItem('lista_sorteados'));
     let lista_actual = JSON.parse(localStorage.getItem('lista_actual'));
     let lista_premios = JSON.parse(localStorage.getItem('lista_premios'));
@@ -195,7 +376,7 @@ let seleccionarRegistroDelListado = () => {
     let registro_premio = { ...registro_seleccionado, ...premio_seleccionado };
     lista_sorteados.push(registro_premio);
     TABLA_SORTEADOS.row.add(registro_premio).draw(false);
-
+    
     localStorage.setItem('lista_actual', JSON.stringify(lista_actual));
     localStorage.setItem('lista_sorteados', JSON.stringify(lista_sorteados));
     localStorage.setItem('lista_premios', JSON.stringify(lista_premios));
@@ -211,6 +392,7 @@ let seleccionarRegistroDelListado = () => {
             modoSortear();
         }
     });
+   spinner.stopSpinning(registro_seleccionado)
 }
 
 let descargarListado = () => {
