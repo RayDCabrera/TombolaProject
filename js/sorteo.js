@@ -371,7 +371,7 @@ let seleccionarRegistroDelListado = () => {
     let lista_premios = JSON.parse(localStorage.getItem('lista_premios'));
 
     let registro_seleccionado = selectRecordBasedOnProbability(lista_actual);
-    let premio_seleccionado = lista_premios.pop();
+    let premio_seleccionado = lista_premios.shift();
     lista_actual = lista_actual.filter((registro) => registro.matricula !== registro_seleccionado.matricula);
     let registro_premio = { ...registro_seleccionado, ...premio_seleccionado };
     lista_sorteados.push(registro_premio);
@@ -380,7 +380,7 @@ let seleccionarRegistroDelListado = () => {
     localStorage.setItem('lista_actual', JSON.stringify(lista_actual));
     localStorage.setItem('lista_sorteados', JSON.stringify(lista_sorteados));
     localStorage.setItem('lista_premios', JSON.stringify(lista_premios));
-
+    setTimeout(() => {
     Swal.fire({
         title: "Ganador seleccionado",
         html: "Nombre: " + registro_premio.nombre + "<br>Nro. Socio: " + registro_premio.matricula + "<br>Premio: " + registro_premio.premio,
@@ -392,6 +392,7 @@ let seleccionarRegistroDelListado = () => {
             modoSortear();
         }
     });
+}, 2700);
    spinner.stopSpinning(registro_seleccionado)
 }
 
