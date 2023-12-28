@@ -75,7 +75,7 @@ function animateSymbols(symbols, finalPosition) {
         symbols.style.top = newPosition + 'px';
         requestAnimationFrame(step);
       } else {
-        // La animación ha terminado
+
         symbols.style.top = finalPosition + 'px';
       }
     }
@@ -95,7 +95,7 @@ const spinner = {
             const symbolCount = symbols.childElementCount;
   
             symbols.innerHTML = "";
-            symbols.appendChild(createSymbolElement("❓"));
+           // symbols.appendChild(createSymbolElement("❓"));
   
             for (let i = 0; i < 50; i++) {
               slotSymbols[index].forEach((symbol) => {
@@ -105,12 +105,9 @@ const spinner = {
   
             const totalDistance = symbolCount * symbolHeight;
   
-  
             const randomOffset =
               -Math.floor(Math.random() * (symbolCount - 1) + 1) * symbolHeight;
-            // symbols.style.transition = "top 0.5s ease-in-out"; // Añade transición suave
-            //symbols.style.transition = "top 0.5s ease-in-out";
-  
+
             symbols.style.top = `${randomOffset}px`;
   
           });
@@ -144,9 +141,6 @@ function resettombola() {
 
 function stopAtDesiredSymbols(registro_seleccionado) {
   
-
-       /*localStorage.setItem('lista_actual', JSON.stringify(lista_actual));
-       console.log(values);*/
     const values = registro_seleccionado
         console.log(values);
       var str = values.matricula.toString();
@@ -157,14 +151,10 @@ function stopAtDesiredSymbols(registro_seleccionado) {
       }
       console.log("[" + res + "]");
   
-  
       const formattedValue = padLeft(values.matricula, 6, '0');
       console.log(formattedValue)
-      //  console.log("[" + symb + "]");
       stopAtSymbols(formattedValue, values.matricula, values.NAME);
-  
-      //document.getElementById("arm").removeAttribute("disabled");
-     // tableganador(values)
+
   }
 
   function padLeft(value, length, padChar) {
@@ -175,9 +165,12 @@ function stopAtDesiredSymbols(registro_seleccionado) {
     const padding = padChar.repeat(length - strValue.length);
     return padding + strValue;
   }
-  
-  
-const TABLA_SORTEADOS = new DataTable('#tablaSorteados', {
+let TABLA_SORTEADOS;
+$(document).ready(function() {
+ TABLA_SORTEADOS = new DataTable('#tablaSorteados', {
+        buttons:[ 
+            'excel'
+        ],
     "lengthMenu": [5, 10, 15, 100],
     "language": {
         "emptyTable": "No hay datos para mostrar",
@@ -199,12 +192,23 @@ const TABLA_SORTEADOS = new DataTable('#tablaSorteados', {
         }
     },
     "columns": [
-        { "title": "#", "data": "numero" },
-        { "title": "Nro. Socio", "data": "matricula" },
+        { "title": "#", "data": "numero", className: 'numero'}, 
+        { "title": "Nro. Socio", "data": "matricula", className: 'nrosocio'},
         { "title": "Nombre", "data": "nombre" },
+        { "title": "Cedula", "data": "ci" },
         { "title": "Premio", "data": "premio" }
     ],
     data: []
+
+    
+});
+// Agregamos un evento de clic al nuevo botón
+$('.botonDescargarListado').on('click', function() {
+    // Ejecutamos la acción de exportar a Excel
+    TABLA_SORTEADOS.button('.buttons-excel').trigger();
+});
+iniciar()
+
 });
 
 let modoSortear = () => {
@@ -257,12 +261,13 @@ let parseCSV = (csvText) => {
     let formatoIncorrecto = false;
 
     for (let i = 1; i < rows.length - 1; i++) {
-        const columns = rows[i].split(',');
-        if (columns.length === 3) {
+        const columns = rows[i].split(';');
+        if (columns.length === 4) {
             const record = {
                 'matricula': parseInt(columns[0]),
                 'nombre': columns[1],
-                'cupones': parseInt(columns[2])
+                'ci': columns[2],
+                'cupones': parseInt(columns[3])
             };
             parsedRecords.push(record);
         } else {
@@ -281,7 +286,7 @@ let parseCSV = (csvText) => {
         return [];
     }
 
-    modoSortear();
+    modoSortear();  
     Swal.fire({
         icon: "success",
         title: "Cupones leídos correctamente!",
@@ -399,6 +404,7 @@ let seleccionarRegistroDelListado = () => {
 let descargarListado = () => {
 
 }
+function iniciar(){
 
 let cargarDatosDeSorteoEnTabla = () => {
     let lista_sorteados = JSON.parse(localStorage.getItem('lista_sorteados'));
@@ -434,4 +440,4 @@ if (checkListaActual) {
     }
 } else {
     mostrarBotonSeleccionArchivo();
-};
+};}

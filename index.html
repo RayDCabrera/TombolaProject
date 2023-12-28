@@ -10,6 +10,15 @@
   <script src="js/jquery-3.7.1.min.js"></script>
   <script src="js/sweetalert2.all.min.js"></script>
   <link href="css/sweetalert2.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="
+  https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+
+
+  <link rel="stylesheet" href="
+  https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+
+
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -59,12 +68,12 @@
       <div class="d-none d-sm-block col-2 align-self-center">
         <img src="img/gift.png" class="img-fluid" alt="">
       </div>
-      
+
       <style>
         .slotcontainer {
           display: flex;
           position: relative;
-          justify-content: center;	
+          justify-content: center;
           align-items: center;
           /*margin-bottom: 0px;*/
 
@@ -73,7 +82,7 @@
           border-color: #466009;
           background-color: #466009;
           border-width: 20px;
-          border-radius: 20px ;
+          border-radius: 20px;
         }
 
         .slot {
@@ -92,7 +101,7 @@
           position: absolute;
           top: 0;
           left: 0;
-          transition: 2s linear ;
+          transition: 2s linear;
         }
 
         .slot .symbol {
@@ -104,12 +113,32 @@
           text-align: center;
           padding-top: 25px;
         }
+
+        #tablaSorteados th{
+          background-color:  #008833;
+          color: white;
+          white-space: nowrap;
+        }
+
+        #tablaSorteados td {
+         text-align: left !important;
+         white-space: nowrap;
+        }
+
+        #tablaSorteados .numero {
+         text-align: center !important;
+        }
+
+        #tablaSorteados .nrosocio {
+          width: 50px !important;
+        }
+
       </style>
 
 
       <div class="col-6 align-self-center">
-        <div class = "slotcontainer">
-        <div class="slot">
+        <div class="slotcontainer">
+          <div class="slot">
             <div class="symbols" id="slot1Symbols"></div>
           </div>
           <div class="slot">
@@ -127,7 +156,7 @@
           <div class="slot">
             <div class="symbols" id="slot6Symbols"></div>
           </div>
-      </div>
+        </div>
       </div>
       <div class="d-none d-sm-block col-2 align-self-center">
         <img src="img/gift.png" class="img-fluid" alt="">
@@ -185,6 +214,25 @@
   <script src="js/jquery.dataTables.min.js"></script>
   <script src="js/premios.js"></script>
   <script src="js/sorteo.js"></script>
-</body>
 
+
+  <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js">
+  </script>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js">
+  </script>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js">
+  </script>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js">
+  </script>
+
+  <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js">
+  </script>
+  <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js">
+  </script>
+
+</body>
+c 
 </html>
