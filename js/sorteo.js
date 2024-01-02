@@ -421,8 +421,9 @@ let seleccionarRegistroDelListado = () => {
     lista_actual = lista_actual.filter((registro) => registro.matricula !== registro_seleccionado.matricula);
     let registro_premio = { ...registro_seleccionado, ...premio_seleccionado };
     lista_sorteados.push(registro_premio);
+    setTimeout(() => {
     TABLA_SORTEADOS.row.add(registro_premio).draw(false);
-    
+}, 2700);
     localStorage.setItem('lista_actual', JSON.stringify(lista_actual));
     localStorage.setItem('lista_sorteados', JSON.stringify(lista_sorteados));
     localStorage.setItem('lista_premios', JSON.stringify(lista_premios));
@@ -448,6 +449,7 @@ let descargarListado = () => {
 function iniciar(){
 
 let cargarDatosDeSorteoEnTabla = () => {
+    
     let lista_sorteados = JSON.parse(localStorage.getItem('lista_sorteados'));
     if (lista_sorteados) {
         lista_sorteados.forEach(e => TABLA_SORTEADOS.row.add(e).draw(false))
