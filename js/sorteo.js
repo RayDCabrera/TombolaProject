@@ -172,8 +172,10 @@ $(document).ready(function() {
             {
                 extend: 'pdfHtml5',
                 text: 'Save',
-                title:'GANADORES DEL SORTEO ESTIMULO DE FIN DE AÑO',
-                color: 'green',
+                title: {
+                    text: 'GANADORES DEL SORTEO ESTIMULO DE FIN DE AÑO',
+                    color: 'green'
+                },
                 orientation: 'landscape',
                 exportOptions: {
                    modifier:{ order: 'index'}
