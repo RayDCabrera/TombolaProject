@@ -172,7 +172,7 @@ $(document).ready(function() {
             {
                 extend: 'pdfHtml5',
                 text: 'Save',
-                title:'GANADORES DEL SORTEO DE FIN DE ANHO',
+                title:'GANADORES DEL SORTEO DE FIN DE AÑO',
                 orientation: 'landscape',
                 exportOptions: {
                    modifier:{ order: 'index'}
@@ -295,7 +295,7 @@ $(document).ready(function(){
     var archivoPath = "./NOMBRESCUPONES.csv";
 
     // Establecer el valor del campo de selección de archivo
-    $("#archivoSorteo").val(archivoPath);
+    $("#archivoSorteo").val( h);
 });
 let parseCSV = (csvText) => {
     const rows = csvText.split('\n');
