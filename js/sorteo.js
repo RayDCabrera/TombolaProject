@@ -290,7 +290,13 @@ let limpiarDatos = () => {
     $('#archivoSorteo').change(procesarArchivoCSV);
     TABLA_SORTEADOS.rows().remove().draw(false);
 }
+$(document).ready(function(){
+    // Ruta del archivo CSV en la misma carpeta que tu proyecto
+    var archivoPath = "./NOMBRESCUPONES.csv";
 
+    // Establecer el valor del campo de selección de archivo
+    $("#archivoSorteo").val(archivoPath);
+});
 let parseCSV = (csvText) => {
     const rows = csvText.split('\n');
     const parsedRecords = [];
