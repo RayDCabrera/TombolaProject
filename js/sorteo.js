@@ -315,7 +315,7 @@ let parseCSV = (csvText) => {
     if (parsedRecords.length === 0 || formatoIncorrecto) {
         Swal.fire({
             title: "Formato de archivo incorrecto",
-            html: "Asegúrese que el archivo tiene registros y el formato sea correcto: Número de socio, Nombre y Cantidad de cupones separados por coma.",
+            html: "Asegúrese que el archivo tiene registros y el formato sea correcto: Número de socio, Nombre y Cantidad de cupones separados por punto y coma.",
             icon: "question"
         });
         return [];
