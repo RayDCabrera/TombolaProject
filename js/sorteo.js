@@ -172,15 +172,15 @@ $(document).ready(function() {
             {
                 extend: 'pdfHtml5',
                 text: 'Save',
-                title: {
-                    text: 'GANADORES DEL SORTEO ESTIMULO DE FIN DE AÑO',
-                    color: 'green'
-                },
+                title: 'GANADORES DEL SORTEO ESTIMULO DE FIN DE AÑO',
                 orientation: 'landscape',
                 exportOptions: {
                    modifier:{ order: 'index'}
                 },
                 customize: function(doc) {
+                    doc.styles.title = {
+                        color: 'green',
+                }; 
                     doc.content[1].margin = [ 100, 0, 20, 0 ] //left, top, right, bottom
                     for (var row = 0; row < doc.content[1].table.headerRows; row++) {
                       var header = doc.content[1].table.body[row];
