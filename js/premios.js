@@ -51,6 +51,7 @@ const PREMIOS = [
   { numero: 45, premio: "PLACA COMBINADA 2H TOKYO" },
   { numero: 46, premio: "PLACA COMBINADA 2H TOKYO" },
 
+  // 47–66 VENTILADOR DE TECHO WATSON (20)
   { numero: 47, premio: "VENTILADOR DE TECHO WATSON" },
   { numero: 48, premio: "VENTILADOR DE TECHO WATSON" },
   { numero: 49, premio: "VENTILADOR DE TECHO WATSON" },
@@ -71,8 +72,9 @@ const PREMIOS = [
   { numero: 64, premio: "VENTILADOR DE TECHO WATSON" },
   { numero: 65, premio: "VENTILADOR DE TECHO WATSON" },
   { numero: 66, premio: "VENTILADOR DE TECHO WATSON" },
-  { numero: 67, premio: "VENTILADOR DE TECHO WATSON" },
 
+  // 67–76 MICROONDAS (10)
+  { numero: 67, premio: "MICROONDAS 20 LTS TOKYO" },
   { numero: 68, premio: "MICROONDAS 20 LTS TOKYO" },
   { numero: 69, premio: "MICROONDAS 20 LTS TOKYO" },
   { numero: 70, premio: "MICROONDAS 20 LTS TOKYO" },
@@ -82,18 +84,21 @@ const PREMIOS = [
   { numero: 74, premio: "MICROONDAS 20 LTS TOKYO" },
   { numero: 75, premio: "MICROONDAS 20 LTS TOKYO" },
   { numero: 76, premio: "MICROONDAS 20 LTS TOKYO" },
-  { numero: 77, premio: "MICROONDAS 20 LTS TOKYO" },
 
+  // 77–81 COCINA (5)
+  { numero: 77, premio: "COCINA 4H M/INOX ATLAS" },
   { numero: 78, premio: "COCINA 4H M/INOX ATLAS" },
   { numero: 79, premio: "COCINA 4H M/INOX ATLAS" },
   { numero: 80, premio: "COCINA 4H M/INOX ATLAS" },
   { numero: 81, premio: "COCINA 4H M/INOX ATLAS" },
-  { numero: 82, premio: "COCINA 4H M/INOX ATLAS" },
 
+  // 82–84 LAVARROPAS (3)
+  { numero: 82, premio: "LAVARROPAS 7K TOKYO" },
   { numero: 83, premio: "LAVARROPAS 7K TOKYO" },
   { numero: 84, premio: "LAVARROPAS 7K TOKYO" },
-  { numero: 85, premio: "LAVARROPAS 7K TOKYO" },
 
+  // 85–99 HORNO (15)
+  { numero: 85, premio: "HORNO ELECTRICO DE 45 LTS TOKYO" },
   { numero: 86, premio: "HORNO ELECTRICO DE 45 LTS TOKYO" },
   { numero: 87, premio: "HORNO ELECTRICO DE 45 LTS TOKYO" },
   { numero: 88, premio: "HORNO ELECTRICO DE 45 LTS TOKYO" },
@@ -108,20 +113,23 @@ const PREMIOS = [
   { numero: 97, premio: "HORNO ELECTRICO DE 45 LTS TOKYO" },
   { numero: 98, premio: "HORNO ELECTRICO DE 45 LTS TOKYO" },
   { numero: 99, premio: "HORNO ELECTRICO DE 45 LTS TOKYO" },
-  { numero: 100, premio: "HORNO ELECTRICO DE 45 LTS TOKYO" },
 
+  // 100–104 BEBEDERO (5)
+  { numero: 100, premio: "BEBEDERO DE MESA F/C TOKYO" },
   { numero: 101, premio: "BEBEDERO DE MESA F/C TOKYO" },
   { numero: 102, premio: "BEBEDERO DE MESA F/C TOKYO" },
   { numero: 103, premio: "BEBEDERO DE MESA F/C TOKYO" },
   { numero: 104, premio: "BEBEDERO DE MESA F/C TOKYO" },
-  { numero: 105, premio: "BEBEDERO DE MESA F/C TOKYO" },
 
-  { numero: 106, premio: "BAFLE PORTATIL 12\' TOKYO" },
-  { numero: 107, premio: "BAFLE PORTATIL 12\' TOKYO" },
-  { numero: 108, premio: "BAFLE PORTATIL 12\' TOKYO" },
-  { numero: 109, premio: "BAFLE PORTATIL 12\' TOKYO" },
-  { numero: 110, premio: "BAFLE PORTATIL 12\' TOKYO" },
+  // 105–109 BAFLE (5)
+  { numero: 105, premio: 'BAFLE PORTATIL 12" TOKYO' },
+  { numero: 106, premio: 'BAFLE PORTATIL 12" TOKYO' },
+  { numero: 107, premio: 'BAFLE PORTATIL 12" TOKYO' },
+  { numero: 108, premio: 'BAFLE PORTATIL 12" TOKYO' },
+  { numero: 109, premio: 'BAFLE PORTATIL 12" TOKYO' },
 
+  // 110–119 HUMIDIFICADOR (10)
+  { numero: 110, premio: "VENTILADOR CON HUMIDIFICADOR TOKYO" },
   { numero: 111, premio: "VENTILADOR CON HUMIDIFICADOR TOKYO" },
   { numero: 112, premio: "VENTILADOR CON HUMIDIFICADOR TOKYO" },
   { numero: 113, premio: "VENTILADOR CON HUMIDIFICADOR TOKYO" },
@@ -131,21 +139,25 @@ const PREMIOS = [
   { numero: 117, premio: "VENTILADOR CON HUMIDIFICADOR TOKYO" },
   { numero: 118, premio: "VENTILADOR CON HUMIDIFICADOR TOKYO" },
   { numero: 119, premio: "VENTILADOR CON HUMIDIFICADOR TOKYO" },
-  { numero: 120, premio: "VENTILADOR CON HUMIDIFICADOR TOKYO" },
 
+  // 120–122 HIDROLAVADORA (3)
+  { numero: 120, premio: "HIDROLAVADORA 1900W C/A TOKYO" },
   { numero: 121, premio: "HIDROLAVADORA 1900W C/A TOKYO" },
   { numero: 122, premio: "HIDROLAVADORA 1900W C/A TOKYO" },
-  { numero: 123, premio: "HIDROLAVADORA 1900W C/A TOKYO" },
 
+  // 123–124 PARLANTE (2)
+  { numero: 123, premio: "PARLANTE C/P MICROF KOLKE" },
   { numero: 124, premio: "PARLANTE C/P MICROF KOLKE" },
-  { numero: 125, premio: "PARLANTE C/P MICROF KOLKE" },
 
+  // 125–129 FABRICADORA (5)
+  { numero: 125, premio: "FABRICADORA DE HIELO FAMILIAR INOX TOKYO" },
   { numero: 126, premio: "FABRICADORA DE HIELO FAMILIAR INOX TOKYO" },
   { numero: 127, premio: "FABRICADORA DE HIELO FAMILIAR INOX TOKYO" },
   { numero: 128, premio: "FABRICADORA DE HIELO FAMILIAR INOX TOKYO" },
   { numero: 129, premio: "FABRICADORA DE HIELO FAMILIAR INOX TOKYO" },
-  { numero: 130, premio: "FABRICADORA DE HIELO FAMILIAR INOX TOKYO" },
 
+  // 130–139 HELADERA MAGNA 300 (10)
+  { numero: 130, premio: "HELADERA MAGNA 300 2P TOKYO" },
   { numero: 131, premio: "HELADERA MAGNA 300 2P TOKYO" },
   { numero: 132, premio: "HELADERA MAGNA 300 2P TOKYO" },
   { numero: 133, premio: "HELADERA MAGNA 300 2P TOKYO" },
@@ -155,26 +167,30 @@ const PREMIOS = [
   { numero: 137, premio: "HELADERA MAGNA 300 2P TOKYO" },
   { numero: 138, premio: "HELADERA MAGNA 300 2P TOKYO" },
   { numero: 139, premio: "HELADERA MAGNA 300 2P TOKYO" },
-  { numero: 140, premio: "HELADERA MAGNA 300 2P TOKYO" },
 
-  { numero: 141, premio: "TV LED 43\" SMART TOKYO" },
-  { numero: 142, premio: "TV LED 43\" SMART TOKYO" },
-  { numero: 143, premio: "TV LED 43\" SMART TOKYO" },
-  { numero: 144, premio: "TV LED 43\" SMART TOKYO" },
-  { numero: 145, premio: "TV LED 43\" SMART TOKYO" },
+  // 140–144 TV 43 (5)
+  { numero: 140, premio: 'TV LED 43" SMART TOKYO' },
+  { numero: 141, premio: 'TV LED 43" SMART TOKYO' },
+  { numero: 142, premio: 'TV LED 43" SMART TOKYO' },
+  { numero: 143, premio: 'TV LED 43" SMART TOKYO' },
+  { numero: 144, premio: 'TV LED 43" SMART TOKYO' },
 
-  { numero: 146, premio: "TV LED 50\" SMART TOKYO" },
-  { numero: 147, premio: "TV LED 50\" SMART TOKYO" },
-  { numero: 148, premio: "TV LED 50\" SMART TOKYO" },
-  { numero: 149, premio: "TV LED 50\" SMART TOKYO" },
-  { numero: 150, premio: "TV LED 50\" SMART TOKYO" },
-  { numero: 151, premio: "TV LED 50\" SMART TOKYO" },
-  { numero: 152, premio: "TV LED 50\" SMART TOKYO" },
-  { numero: 153, premio: "TV LED 50\" SMART TOKYO" },
+  // 145–152 TV 50 (8)
+  { numero: 145, premio: 'TV LED 50" SMART TOKYO' },
+  { numero: 146, premio: 'TV LED 50" SMART TOKYO' },
+  { numero: 147, premio: 'TV LED 50" SMART TOKYO' },
+  { numero: 148, premio: 'TV LED 50" SMART TOKYO' },
+  { numero: 149, premio: 'TV LED 50" SMART TOKYO' },
+  { numero: 150, premio: 'TV LED 50" SMART TOKYO' },
+  { numero: 151, premio: 'TV LED 50" SMART TOKYO' },
+  { numero: 152, premio: 'TV LED 50" SMART TOKYO' },
 
+  // 153–154 NOTEBOOK (2)
+  { numero: 153, premio: "NOTEBOOK 14 HP" },
   { numero: 154, premio: "NOTEBOOK 14 HP" },
-  { numero: 155, premio: "NOTEBOOK 14 HP" },
 
+  // 155–182 AIRE (28)
+  { numero: 155, premio: "AIRE ACONDICIONADO SPLIT 12.000 BTU TOKYO" },
   { numero: 156, premio: "AIRE ACONDICIONADO SPLIT 12.000 BTU TOKYO" },
   { numero: 157, premio: "AIRE ACONDICIONADO SPLIT 12.000 BTU TOKYO" },
   { numero: 158, premio: "AIRE ACONDICIONADO SPLIT 12.000 BTU TOKYO" },
@@ -202,15 +218,16 @@ const PREMIOS = [
   { numero: 180, premio: "AIRE ACONDICIONADO SPLIT 12.000 BTU TOKYO" },
   { numero: 181, premio: "AIRE ACONDICIONADO SPLIT 12.000 BTU TOKYO" },
   { numero: 182, premio: "AIRE ACONDICIONADO SPLIT 12.000 BTU TOKYO" },
-  { numero: 183, premio: "AIRE ACONDICIONADO SPLIT 12.000 BTU TOKYO" },
 
+  // 183–187 MAGNA PLUS (5)
+  { numero: 183, premio: "HELADERA 2P F/H MAGNA PLUS 350 BL TOKYO" },
   { numero: 184, premio: "HELADERA 2P F/H MAGNA PLUS 350 BL TOKYO" },
   { numero: 185, premio: "HELADERA 2P F/H MAGNA PLUS 350 BL TOKYO" },
   { numero: 186, premio: "HELADERA 2P F/H MAGNA PLUS 350 BL TOKYO" },
   { numero: 187, premio: "HELADERA 2P F/H MAGNA PLUS 350 BL TOKYO" },
-  { numero: 188, premio: "HELADERA 2P F/H MAGNA PLUS 350 BL TOKYO" },
 
+  // 188–190 WHIRLPOOL (3)
+  { numero: 188, premio: "HELADERA 2P F/S 400 LTS INOX WHIRLPOOL" },
   { numero: 189, premio: "HELADERA 2P F/S 400 LTS INOX WHIRLPOOL" },
-  { numero: 190, premio: "HELADERA 2P F/S 400 LTS INOX WHIRLPOOL" },
-  { numero: 191, premio: "HELADERA 2P F/S 400 LTS INOX WHIRLPOOL" }
+  { numero: 190, premio: "HELADERA 2P F/S 400 LTS INOX WHIRLPOOL" }
 ];
